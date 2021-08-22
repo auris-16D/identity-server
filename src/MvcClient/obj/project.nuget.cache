@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZL/iiQ9w+cMDwGwOe2RNEA0qNx/t1J41vHu6tZ4ZDrQ7qbNAO2y+M9v/9e2HMyiS4WrI03/0dHG9F3DahFOF2w==",
+  "success": true,
+  "projectFilePath": "/Users/nigelsurtees/projects/identity_server/src/MvcClient/MvcClient.csproj",
+  "expectedPackageFiles": [
+    "/Users/nigelsurtees/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/5.0.7/microsoft.aspnetcore.authentication.openidconnect.5.0.7.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.7.1/microsoft.identitymodel.jsonwebtokens.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.logging/6.7.1/microsoft.identitymodel.logging.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.protocols/6.7.1/microsoft.identitymodel.protocols.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.7.1/microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.tokens/6.7.1/microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/system.identitymodel.tokens.jwt/6.7.1/system.identitymodel.tokens.jwt.6.7.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

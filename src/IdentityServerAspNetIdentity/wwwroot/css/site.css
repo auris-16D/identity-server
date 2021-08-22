@@ -1,0 +1,74 @@
+.body-container {
+  margin-top: 60px;
+  padding-bottom: 40px; }
+
+.welcome-page li {
+  list-style: none;
+  padding: 4px; }
+
+.logged-out-page iframe {
+  display: none;
+  width: 0;
+  height: 0; }
+
+.grants-page .card {
+  margin-top: 20px;
+  border-bottom: 1px solid lightgray; }
+  .grants-page .card .card-title {
+    font-size: 120%;
+    font-weight: bold; }
+    .grants-page .card .card-title img {
+      width: 100px;
+      height: 100px; }
+  .grants-page .card label {
+    font-weight: bold; }
+/*.fakebtn {
+    display: inline-block;
+    color: #FFFFFF;
+    border: 1px solid #CCC;
+    background: #5cb85c;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    max-width: 100px;
+    padding: 7px;
+    text-align: center;
+}
+.link {
+    color: white;
+    font-family: inherit;
+}*/
+
+.login-page .fakebtn{
+    display: inline-block;
+    color: #FFFFFF;
+    border: 1px solid #CCC;
+    background: #5cb85c;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    max-width: 100px;
+    padding: 7px;
+    text-align: center;
+}
+
+.login-page a.hover {
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.login-page a.link {
+    text-decoration: none;
+    color: white;
+}
+
+
+.login-page a.visited {
+    text-decoration: none;
+    color: white;
+}
+
+.login-page a.active {
+    text-decoration: none;
+    color: white;
+}

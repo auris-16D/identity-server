@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = IdentityServerAspNetIdentity
+build_property.ProjectDir = /Users/nigelsurtees/projects/identity_server/src/IdentityServerAspNetIdentity/

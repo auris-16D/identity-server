@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "s/Vjko4eGylGurUOpeuaMKqpUCjF4D137ZkAZkLDJSsfTO9R7KwGbXm3V9znibFlE5JMRDPV4+m8syd8PL0NKw==",
+  "success": true,
+  "projectFilePath": "/Users/nigelsurtees/projects/identity_server/src/Client/Client.csproj",
+  "expectedPackageFiles": [
+    "/Users/nigelsurtees/.nuget/packages/identitymodel/5.1.0/identitymodel.5.1.0.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/system.text.encodings.web/5.0.1/system.text.encodings.web.5.0.1.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/system.text.json/5.0.1/system.text.json.5.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
