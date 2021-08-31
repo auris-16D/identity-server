@@ -36,7 +36,11 @@ namespace IdentityServerAspNetIdentity
                  ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))
             ));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedEmail = true;
+            }
+            )
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -74,7 +78,7 @@ namespace IdentityServerAspNetIdentity
             // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, IdentityEmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddTransient<IEmailSender, AuthMessageSender>();
+            // services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 

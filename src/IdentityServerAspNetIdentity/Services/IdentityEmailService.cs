@@ -24,7 +24,7 @@ namespace IdentityServerAspNetIdentity.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Joe@contoso.com", Options.SendGridUser),
+                From = new EmailAddress("nigesurtees@gmail.com", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
@@ -34,8 +34,8 @@ namespace IdentityServerAspNetIdentity.Services
             // Disable click tracking.
             // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
-
-            return client.SendEmailAsync(msg);
+            var response = client.SendEmailAsync(msg);
+            return response;
         }
     }
 }
