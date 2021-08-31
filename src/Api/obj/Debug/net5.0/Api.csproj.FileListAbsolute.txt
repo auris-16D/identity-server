@@ -17,6 +17,7 @@
 /Users/nigelsurtees/projects/identity_server/src/Api/bin/Debug/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/nigelsurtees/projects/identity_server/src/Api/bin/Debug/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/nigelsurtees/projects/identity_server/src/Api/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/nigelsurtees/projects/identity_server/src/Api/obj/Debug/net5.0/Api.csproj.AssemblyReference.cache
 /Users/nigelsurtees/projects/identity_server/src/Api/obj/Debug/net5.0/Api.GeneratedMSBuildEditorConfig.editorconfig
 /Users/nigelsurtees/projects/identity_server/src/Api/obj/Debug/net5.0/Api.AssemblyInfoInputs.cache
 /Users/nigelsurtees/projects/identity_server/src/Api/obj/Debug/net5.0/Api.AssemblyInfo.cs

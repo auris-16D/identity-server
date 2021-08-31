@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="Multiple Projects">
   <MonoDevelop.Ide.ItemProperties.src.IdentityServerAspNetIdentity PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.src.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/IdentityServerAspNetIdentity/Views/Account/ForgotPasswordConfirmation.cshtml">
     <Files>
       <File FileName="src/IdentityServerAspNetIdentity/Config.cs" Line="101" Column="47" />
       <File FileName="src/IdentityServerAspNetIdentity/obj/Debug/netcoreapp3.1/IdentityServerAspNetIdentity.csproj.FileListAbsolute.txt" Line="99" Column="123" />
@@ -31,10 +31,12 @@
                 <Node name="Properties" expanded="True" />
                 <Node name="Services" expanded="True" />
                 <Node name="Views" expanded="True">
-                  <Node name="Account" expanded="True" />
+                  <Node name="Account" expanded="True">
+                    <Node name="ForgotPasswordConfirmation.cshtml" selected="True" />
+                  </Node>
                 </Node>
               </Node>
-              <Node name="MvcClient" expanded="True" selected="True">
+              <Node name="MvcClient" expanded="True">
                 <Node name="Dependencies" expanded="True">
                   <Node name="PackageDependencies" expanded="True" />
                 </Node>
