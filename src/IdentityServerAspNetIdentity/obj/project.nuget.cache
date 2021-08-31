@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "X9jYHI6ilpXrFShHrFIC+/uA+IATph8BWQv2D/G970PKDMlwgg/WQeNo6dMgLuYAkVUeopMJIHRsIl3O/qGTkg==",
+  "dgSpecHash": "po73sDs3oG7jvEJUUJIjUJr1zRSiNtxBpII1ERMyAgHH7YaQP7G0k/PH/fEQjO9NYSmQfLxhXd5tCS4xHfueeA==",
   "success": true,
   "projectFilePath": "/Users/nigelsurtees/projects/identity_server/src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj",
   "expectedPackageFiles": [

@@ -39,9 +39,13 @@
     <None Remove="SendGrid" />
     <None Remove="EmailServices\" />
     <None Remove="Microsoft.AspNet.Identity.Core" />
+    <None Remove="Controllers\" />
+    <None Remove="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Services\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

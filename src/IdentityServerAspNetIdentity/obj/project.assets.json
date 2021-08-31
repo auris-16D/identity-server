@@ -6274,7 +6274,7 @@
       "outputPath": "/Users/nigelsurtees/projects/identity_server/src/IdentityServerAspNetIdentity/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/nigelsurtees/.nuget/NuGet/NuGet.Config"
+        "/Users/nigelsurtees/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

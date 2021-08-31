@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.7": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.9": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.7.1"
@@ -118,10 +118,10 @@
     }
   },
   "libraries": {
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.7": {
-      "sha512": "pHhfYB92bZhENXFFrQ42Ru/BCWkhWOP4tuyQN3rOCZ2yw3rsiPApPbxMHvUUKF2QaudgBlI64BkTzupc085cMA==",
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/5.0.9": {
+      "sha512": "uk9jUzsT6XSGdezUyyfrTv/dJLBvV68b5ZJiC6YM+aeOCvSI36z/j71sBuCu6wu+eE+HrSwY5CIO7hqJxCRomg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.openidconnect/5.0.7",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/5.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -129,7 +129,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net5.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll",
         "lib/net5.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.xml",
-        "microsoft.aspnetcore.authentication.openidconnect.5.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.openidconnect.5.0.9.nupkg.sha512",
         "microsoft.aspnetcore.authentication.openidconnect.nuspec"
       ]
     },
@@ -369,7 +369,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.7"
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.9"
     ]
   },
   "packageFolders": {
@@ -411,7 +411,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
             "target": "Package",
-            "version": "[5.0.7, )"
+            "version": "[5.0.9, )"
           }
         },
         "imports": [

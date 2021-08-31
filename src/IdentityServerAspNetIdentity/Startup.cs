@@ -3,18 +3,16 @@
 
 
 using IdentityServer4;
-using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
 using IdentityServerAspNetIdentity.Services;
-using IdentityServerAspNetIdentity.Services.WebPWrecover.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IEmailSender = IdentityServerAspNetIdentity.Services.IEmailSender;
 
 namespace IdentityServerAspNetIdentity
 {
@@ -76,6 +74,8 @@ namespace IdentityServerAspNetIdentity
             // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, IdentityEmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         public void Configure(IApplicationBuilder app)

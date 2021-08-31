@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZL/iiQ9w+cMDwGwOe2RNEA0qNx/t1J41vHu6tZ4ZDrQ7qbNAO2y+M9v/9e2HMyiS4WrI03/0dHG9F3DahFOF2w==",
+  "dgSpecHash": "8Jie/pJfgcUoz3mbSQOujYAZUzOHeYpno++ezfvAS3c9eQcOoA+0Z3L8GeAR807Xi62MTw7GcvbqTgSMR0Ve4Q==",
   "success": true,
   "projectFilePath": "/Users/nigelsurtees/projects/identity_server/src/MvcClient/MvcClient.csproj",
   "expectedPackageFiles": [
-    "/Users/nigelsurtees/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/5.0.7/microsoft.aspnetcore.authentication.openidconnect.5.0.7.nupkg.sha512",
+    "/Users/nigelsurtees/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/5.0.9/microsoft.aspnetcore.authentication.openidconnect.5.0.9.nupkg.sha512",
     "/Users/nigelsurtees/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.7.1/microsoft.identitymodel.jsonwebtokens.6.7.1.nupkg.sha512",
     "/Users/nigelsurtees/.nuget/packages/microsoft.identitymodel.logging/6.7.1/microsoft.identitymodel.logging.6.7.1.nupkg.sha512",
