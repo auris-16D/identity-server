@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
-    <None Remove="Data\Migrations\" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="SendGrid" />
     <None Remove="EmailServices\" />
@@ -43,7 +42,6 @@
     <None Remove="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
     <Folder Include="Services\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
