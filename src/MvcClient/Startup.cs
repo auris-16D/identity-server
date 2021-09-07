@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace MvcClient
+namespace Budget
 {
     public class Startup
     {
@@ -40,6 +40,8 @@ namespace MvcClient
                     options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.SaveTokens = true;
+                    options.Scope.Add("api1");
+                    options.Scope.Add("offline_access");
                 });
         }
 

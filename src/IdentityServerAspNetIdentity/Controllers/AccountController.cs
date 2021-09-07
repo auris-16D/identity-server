@@ -91,7 +91,7 @@ namespace IdentityServerAspNetIdentity.Controllers
                 else
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
-                    if (!await _userManager.IsEmailConfirmedAsync(user))
+                    if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
                     {
                         var errorMsg = $"Email not confirmed. Please find the email sent to {model.Email} when you registered and click the link to confirm your email address";
                         ModelState.AddModelError(string.Empty, errorMsg);

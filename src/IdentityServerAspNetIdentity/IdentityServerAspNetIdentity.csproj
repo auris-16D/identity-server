@@ -31,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SendGrid" Version="9.24.2" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.2" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
@@ -40,6 +41,7 @@
     <None Remove="Microsoft.AspNet.Identity.Core" />
     <None Remove="Controllers\" />
     <None Remove="Models\" />
+    <None Remove="IdentityServer4.EntityFramework" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
