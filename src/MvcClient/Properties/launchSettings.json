@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MvcClient": {
+    "Budget": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

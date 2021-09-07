@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E69BDB2-AD37-4154-BBE1-C9561EFCFAF4}"
+	ProjectSection(SolutionItems) = preProject
+		src\docker-compose.yml = src\docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{33945DAA-D014-448A-B3B2-75B35EB6A175}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "src\Client\Client.csproj", "{4EC1A446-BE19-4F3F-90D1-D602C9F775FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcClient", "src\MvcClient\MvcClient.csproj", "{D0B64681-A999-486F-9B7B-075C8B4A279D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget", "src\MvcClient\Budget.csproj", "{D0B64681-A999-486F-9B7B-075C8B4A279D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerAspNetIdentity", "src\IdentityServerAspNetIdentity\IdentityServerAspNetIdentity.csproj", "{3913BE86-A05F-4CB5-A482-98DA7A885AC8}"
 EndProject

@@ -90,7 +90,17 @@ namespace IdentityServerAspNetIdentity.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        var errorMsg = $"Email not confirmed. Please find the email sent to {model.Email} when you registered and click the link to confirm your email address";
+                        ModelState.AddModelError(string.Empty, errorMsg);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    }
+
                     return View(model);
                 }
             }

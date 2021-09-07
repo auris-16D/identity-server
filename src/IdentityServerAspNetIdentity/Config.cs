@@ -94,21 +94,26 @@ namespace IdentityServerAspNetIdentity
                 ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
+                AccessTokenLifetime = 3600,
+                RefreshTokenExpiration = TokenExpiration.Absolute,
+                RefreshTokenUsage = TokenUsage.ReUse,
 
                 // where to redirect to after login
                 RedirectUris = { "https://localhost:5010/signin-oidc" },
 
                 // where to redirect to after logout
                 PostLogoutRedirectUris = { "https://localhost:5010/signout-callback-oidc" },
-                
+
+                AllowOfflineAccess = true,
 
                 AllowedScopes = new List<string>
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    { "trekApi" }
+                    IdentityServerConstants.StandardScopes.OfflineAccess,
+                    "api1"
                 }
             }
-            };
+        };
     }
 }
