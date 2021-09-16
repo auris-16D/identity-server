@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class Group
+    public partial class Group : AccessibleResource
     {
         public Group()
         {
             GroupCategories = new HashSet<GroupCategory>();
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public long AccountId { get; set; }

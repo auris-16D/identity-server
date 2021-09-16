@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class TransactionHeader
+    public partial class TransactionHeader : AccessibleResource
     {
         public TransactionHeader()
         {
             TransactionItems = new HashSet<TransactionItem>();
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public string PrincipleGuid { get; set; }
         public DateTime TransactionDate { get; set; }
         public long AccountId { get; set; }
@@ -30,5 +28,10 @@ namespace Api.Models
         public virtual Contact Contact { get; set; }
         public virtual Reconciled ReconciledNavigation { get; set; }
         public virtual ICollection<TransactionItem> TransactionItems { get; set; }
+
+        public override bool IsParentOwnedBy(Guid principleId)
+        {
+            return this.Account.IsOwnedBy(principleId);
+        }
     }
 }

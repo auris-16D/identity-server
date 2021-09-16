@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class Reconciled
+    public partial class Reconciled : AccessibleResource
     {
         public Reconciled()
         {
             TransactionHeaders = new HashSet<TransactionHeader>();
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public string PrincipleGuid { get; set; }
         public decimal ReconciledBalance { get; set; }
         public DateTime ReconciledDate { get; set; }

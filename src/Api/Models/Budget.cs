@@ -7,7 +7,7 @@ using Api.AccessControl;
 
 namespace Api.Models
 {
-    public partial class Budget : IRootAccessibleResource
+    public partial class Budget : IAccessibleResource
     {
         public Budget()
         {
@@ -55,6 +55,11 @@ namespace Api.Models
                     );
             }
             return exists;
+        }
+
+        public bool IsParentOwnedBy(Guid principleId)
+        {
+            return this.IsOwnedBy(principleId);
         }
     }
 }

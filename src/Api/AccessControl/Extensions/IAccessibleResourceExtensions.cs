@@ -5,33 +5,33 @@ using Api.Library.Enums;
 
 namespace Api.AccessControl.Extensions
 {
-    public static class IRootAccessibleResourceExtensions
+    public static class IAccessibleResourceExtensions
     {
-        public static bool CanCreate(this IRootAccessibleResource accessibleResource, string principleId)
+        public static bool CanCreate(this IAccessibleResource accessibleResource, string principleId)
         {
-            if(!accessibleResource.IsOwnedBy(principleId.ToGuid()))
+            if(!accessibleResource.IsParentOwnedBy(principleId.ToGuid()))
             {
                 return false;
             }
             return CanAccess(accessibleResource, principleId, CrudAction.Create);
         }
 
-        public static bool CanRead(this IRootAccessibleResource accessibleResource, string principleId)
+        public static bool CanRead(this IAccessibleResource accessibleResource, string principleId)
         {
             return CanAccess(accessibleResource, principleId, CrudAction.Read);
         }
 
-        public static bool CanUpdate(this IRootAccessibleResource accessibleResource, string principleId)
+        public static bool CanUpdate(this IAccessibleResource accessibleResource, string principleId)
         {
             return CanAccess(accessibleResource, principleId, CrudAction.Update);
         }
 
-        public static bool CanDelete(this IRootAccessibleResource accessibleResource, string principleId)
+        public static bool CanDelete(this IAccessibleResource accessibleResource, string principleId)
         {
             return CanAccess(accessibleResource, principleId, CrudAction.Delete);
         }
 
-        private static bool CanAccess(IRootAccessibleResource accessibleResource, string principleId, CrudAction crudAction)
+        private static bool CanAccess(IAccessibleResource accessibleResource, string principleId, CrudAction crudAction)
         {
             bool isaccessable = false;
 

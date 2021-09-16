@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class ResourcePolicy
+    public partial class ResourcePolicy : AccessibleResource
     {
         public ResourcePolicy()
         {
             PrincipleResourcePolicies = new HashSet<PrincipleResourcePolicy>();
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public string ResourceName { get; set; }
         public string ResourceAction { get; set; }
         public string Description { get; set; }

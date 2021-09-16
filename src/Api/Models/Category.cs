@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class Category
+    public partial class Category : AccessibleResource
     {
         public Category()
         {
@@ -13,8 +13,6 @@ namespace Api.Models
             TransactionItems = new HashSet<TransactionItem>();
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }

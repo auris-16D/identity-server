@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
 namespace Api.Models
 {
-    public partial class TransactionItem
+    public partial class TransactionItem : AccessibleResource
     {
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
         public long CategoryId { get; set; }
         public decimal Amount { get; set; }
         public string Description { get; set; }
@@ -19,5 +16,10 @@ namespace Api.Models
         public virtual Budget Budget { get; set; }
         public virtual Category Category { get; set; }
         public virtual TransactionHeader TransactionHeader { get; set; }
+
+        public override bool IsOwnedBy(Guid principleId)
+        {
+            return this.TransactionHeader.IsOwnedBy(principleId);
+        }
     }
 }

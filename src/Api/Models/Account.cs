@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Api.AccessControl;
-using Api.Library.Extensions;
 
 #nullable disable
 
 namespace Api.Models
 {
-    public partial class Account : IChildAccessibleResource
+    public partial class Account : AccessibleResource
     {
         private Budget _Budget;
-
         public Account()
         {
             Groups = new HashSet<Group>();
@@ -25,9 +21,6 @@ namespace Api.Models
             Budget = budget;
         }
 
-        public long Id { get; set; }
-        public long BudgetId { get; set; }
-        //public Budget Budget { get; set; }
         public string Name { get; set; }
         public string AccountType { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -45,23 +38,7 @@ namespace Api.Models
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
 
-        public bool IsOwnedBy(Guid principleId)
-        {
-            var strPrincipleId = principleId.ToString();
-            bool exists = false;
-            using(var db = new BudgetContext())
-            {
-                exists = db.ResourceUsers.Any(
-                    ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleGuid == strPrincipleId &&
-                    ru.ResourceType == this.GetType().Name &&
-                    ru.ResourceId == this.Id
-                    );
-            }
-            return exists;
-        }
-
-        public bool IsParentOwnedBy(Guid principleId)
+        public override bool IsParentOwnedBy(Guid principleId)
         {
             return this.Budget.IsOwnedBy(principleId);
         }
