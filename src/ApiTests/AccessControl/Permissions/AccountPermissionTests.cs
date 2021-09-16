@@ -2,6 +2,7 @@
 using Api.AccessControl.Extensions;
 using Api.Models;
 using NUnit.Framework;
+using Api.Library.Enums;
 
 namespace ApiTests.AccessControl.Permissions
 {

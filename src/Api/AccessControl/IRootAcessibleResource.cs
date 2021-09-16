@@ -1,10 +1,9 @@
 ﻿using System;
 namespace Api.AccessControl
 {
-    public interface IAccessibleResource
+    public interface IRootAccessibleResource
     {
         long BudgetId { get; }
         bool IsOwnedBy(Guid principleId);
-        bool IsParentOwnedBy(Guid principleId);
     }
 }

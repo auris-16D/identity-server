@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Api.AccessControl;
 
 #nullable disable
 
 namespace Api.Models
 {
-    public partial class Budget : IAccessibleResource
+    public partial class Budget : IRootAccessibleResource
     {
         public Budget()
         {
@@ -42,12 +43,18 @@ namespace Api.Models
 
         public bool IsOwnedBy(Guid principleId)
         {
-            return true;
-        }
-
-        public bool IsParentOwnedBy(Guid principleId)
-        {
-            return true;
+            var strPrincipleId = principleId.ToString();
+            bool exists = false;
+            using (var db = new BudgetContext())
+            {
+                exists = db.ResourceUsers.Any(
+                    ru => ru.BudgetId == this.BudgetId &&
+                    ru.PrincipleGuid == strPrincipleId &&
+                    ru.ResourceType == this.GetType().Name &&
+                    ru.ResourceId == this.BudgetId
+                    );
+            }
+            return exists;
         }
     }
 }

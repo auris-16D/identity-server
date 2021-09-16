@@ -19,7 +19,6 @@ namespace ApiTests.AccessControl.Ownership
                 
                 budget.Accounts.Add(account);
                 db.Budgets.Add(budget);
-                db.Accounts.Add(account);
 
                 db.SaveChanges();
 
@@ -50,7 +49,6 @@ namespace ApiTests.AccessControl.Ownership
 
                 budget.Accounts.Add(account);
                 db.Budgets.Add(budget);
-                db.Accounts.Add(account);
 
                 db.SaveChanges();
 
@@ -83,7 +81,6 @@ namespace ApiTests.AccessControl.Ownership
                 budget.Accounts.Add(account);
                 db.Budgets.Add(budget);
                 db.Budgets.Add(budget2);
-                db.Accounts.Add(account);
 
                 db.SaveChanges();
 
@@ -116,7 +113,6 @@ namespace ApiTests.AccessControl.Ownership
                 budget.Accounts.Add(account);
                 db.Budgets.Add(budget);
                 db.Budgets.Add(budget2);
-                db.Accounts.Add(account);
 
                 db.SaveChanges();
 

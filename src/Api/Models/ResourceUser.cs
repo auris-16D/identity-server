@@ -6,7 +6,7 @@ using Api.AccessControl;
 
 namespace Api.Models
 {
-    public partial class ResourceUser : IAccessibleResource
+    public partial class ResourceUser : IParentAccessibleResource
     {
         public long Id { get; set; }
         public long BudgetId { get; set; }

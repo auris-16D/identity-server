@@ -22,6 +22,7 @@
     <None Remove="lib\Extensions\" />
     <None Remove="AccessControl\Extensions\" />
     <None Remove="Library\Exceptions\" />
+    <None Remove="Library\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccessControl\" />
@@ -29,5 +30,6 @@
     <Folder Include="Library\Extensions\" />
     <Folder Include="AccessControl\Extensions\" />
     <Folder Include="Library\Exceptions\" />
+    <Folder Include="Library\Enums\" />
   </ItemGroup>
 </Project>

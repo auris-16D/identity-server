@@ -8,7 +8,7 @@ using Api.Library.Extensions;
 
 namespace Api.Models
 {
-    public partial class Account : IAccessibleResource
+    public partial class Account : IChildAccessibleResource
     {
         private Budget _Budget;
 
@@ -63,18 +63,7 @@ namespace Api.Models
 
         public bool IsParentOwnedBy(Guid principleId)
         {
-            var strPrincipleId = principleId.ToString();
-            bool exists = false;
-            using (var db = new BudgetContext())
-            {
-                exists = db.ResourceUsers.Any(
-                    ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleGuid == strPrincipleId &&
-                    ru.ResourceType == this.Budget.GetType().Name &&
-                    ru.ResourceId == this.BudgetId
-                    );
-            }
-            return exists;
+            return this.Budget.IsOwnedBy(principleId);
         }
     }
 }
