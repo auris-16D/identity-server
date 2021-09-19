@@ -53,7 +53,7 @@ namespace Api.AccessControl.Extensions
                if(policy != null)
                {
                     var principlePolicy = db.PrincipleResourcePolicies.Any(prp =>
-                    prp.PrincipleGuid == principleId &&
+                    prp.PrincipleId == principleId &&
                     prp.BudgetId == accessibleResource.BudgetId &&
                     prp.ResourcePolicyId == policy.Id
                     );

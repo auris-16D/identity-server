@@ -8,6 +8,7 @@ namespace Api.Models
     public partial class Account : AccessibleResource
     {
         private Budget _Budget;
+
         public Account()
         {
             Groups = new HashSet<Group>();
@@ -25,6 +26,8 @@ namespace Api.Models
         public string AccountType { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
 
         public virtual Budget Budget
         {
@@ -35,12 +38,10 @@ namespace Api.Models
                 this.BudgetId = _Budget.BudgetId;
             }
         }
-        public virtual ICollection<Group> Groups { get; set; }
-        public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
 
         public override bool IsParentOwnedBy(Guid principleId)
         {
             return this.Budget.IsOwnedBy(principleId);
         }
-    }
+}
 }

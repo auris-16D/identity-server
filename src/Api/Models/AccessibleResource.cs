@@ -17,7 +17,7 @@ namespace Api.Models
             {
                 exists = db.ResourceUsers.Any(
                     ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleGuid == strPrincipleId &&
+                    ru.PrincipleId == strPrincipleId &&
                     ru.ResourceType == this.GetType().Name &&
                     ru.ResourceId == this.Id
                     );

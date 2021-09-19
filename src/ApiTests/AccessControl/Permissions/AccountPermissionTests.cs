@@ -17,7 +17,7 @@ namespace ApiTests.AccessControl.Permissions
                 var canAccess = false;
                 var principleId = Guid.NewGuid();
                 var account = SetupAccountAndPermissions(principleId, action);
-                canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                canAccess = CanAccessForAction(principleId.ToString(), action, account, true);
                 Assert.IsTrue(canAccess,$"Failed to access Account for Action: {action}");
             } 
         }
@@ -40,7 +40,7 @@ namespace ApiTests.AccessControl.Permissions
                     account = new Account(budget);
                     budget.Accounts.Add(account);
                 }
-                canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                canAccess = CanAccessForAction(principleId.ToString(), action, account, false);
                 Assert.IsFalse(canAccess, $"Access granted to Account for Action: {action} without a Resourcec Policy");
             }
         }
@@ -70,7 +70,7 @@ namespace ApiTests.AccessControl.Permissions
                     budget.Accounts.Add(account);
                     db.SaveChanges();
 
-                    canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                    canAccess = CanAccessForAction(principleId.ToString(), action, account, false);
                 }
                 Assert.IsFalse(canAccess);
             }
@@ -82,6 +82,11 @@ namespace ApiTests.AccessControl.Permissions
             Account account = new Account(budget);
             using (var db = new BudgetContext())
             {
+                db.Principles.Add(new Principle
+                {
+                    Id = principleId.ToString()
+                });
+
                 db.Budgets.Add(budget);
                 var resourcePolicy = new ResourcePolicy
                 {
@@ -93,7 +98,7 @@ namespace ApiTests.AccessControl.Permissions
 
                 var principleResourcePolicy = new PrincipleResourcePolicy
                 {
-                    PrincipleGuid = principleId.ToString(),
+                    PrincipleId = principleId.ToString(),
                     BudgetId = budget.BudgetId
                 };
 
@@ -103,7 +108,7 @@ namespace ApiTests.AccessControl.Permissions
                 db.SaveChanges();
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleGuid = principleId.ToString(),
+                    PrincipleId = principleId.ToString(),
                     ResourceId = budget.BudgetId,
                     ResourceType = budget.GetType().Name,
                     BudgetId = budget.BudgetId
@@ -129,7 +134,7 @@ namespace ApiTests.AccessControl.Permissions
             return account;
         }
 
-        private bool CanAccessForAction(string principleId, CrudAction action, IAccessibleResource resource)
+        private bool CanAccessForAction(string principleId, CrudAction action, IAccessibleResource resource, bool expectedResult)
         {
             var canAccess = false;
             switch (action)
@@ -148,16 +153,16 @@ namespace ApiTests.AccessControl.Permissions
                     break;
                 case CrudAction.Full:
                     canAccess = resource.CanCreate(principleId.ToString());
-                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Create} without Full permissions");
+                    Assert.AreEqual(expectedResult, canAccess, $"CanCreate(): {canAccess} for {resource.GetType().Name} for Action: {CrudAction.Create} using Full permissions");
 
                     canAccess = resource.CanRead(principleId.ToString());
-                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Read} without Full permissions");
+                    Assert.AreEqual(expectedResult, canAccess, $"CanRead(): {canAccess} for {resource.GetType().Name} for Action: {CrudAction.Read} using Full permissions");
 
                     canAccess = resource.CanUpdate(principleId.ToString());
-                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Update} without Full permissions");
+                    Assert.AreEqual(expectedResult, canAccess, $"CanUpdate(): {canAccess} for {resource.GetType().Name} for Action: {CrudAction.Update} using Full permissions");
 
                     canAccess = resource.CanDelete(principleId.ToString());
-                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Delete} without Full permissions");
+                    Assert.AreEqual(expectedResult, canAccess, $"CanDelete(): {canAccess} for {resource.GetType().Name} for Action: {CrudAction.Delete} using Full permissions");
                     break;
             }
             return canAccess;

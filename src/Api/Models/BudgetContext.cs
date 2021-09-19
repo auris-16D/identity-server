@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -23,10 +24,12 @@ namespace Api.Models
         public virtual DbSet<ContactType> ContactTypes { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<GroupCategory> GroupCategories { get; set; }
+        public virtual DbSet<Principle> Principles { get; set; }
         public virtual DbSet<PrincipleResourcePolicy> PrincipleResourcePolicies { get; set; }
-        public virtual DbSet<Reconciled> Reconcileds { get; set; }
+        public virtual DbSet<Reconciliation> Reconciliations { get; set; }
         public virtual DbSet<ResourcePolicy> ResourcePolicies { get; set; }
         public virtual DbSet<ResourceUser> ResourceUsers { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TransactionHeader> TransactionHeaders { get; set; }
         public virtual DbSet<TransactionItem> TransactionItems { get; set; }
 
@@ -101,6 +104,10 @@ namespace Api.Models
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .HasColumnName("description");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(255)
+                    .HasColumnName("name");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasMaxLength(6)
@@ -339,6 +346,38 @@ namespace Api.Models
                     .HasConstraintName("fk_rails_ef10bdfffb");
             });
 
+            modelBuilder.Entity<Principle>(entity =>
+            {
+                entity.ToTable("principles");
+
+                entity.HasCharSet("utf8")
+                    .UseCollation("utf8_general_ci");
+
+                entity.HasIndex(e => e.Email, "index_resource_users_on_email");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(36)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasMaxLength(6)
+                    .HasColumnName("created_at");
+
+                entity.Property(e => e.Email).HasColumnName("email");
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(255)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.Surname)
+                    .HasMaxLength(255)
+                    .HasColumnName("surname");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasMaxLength(6)
+                    .HasColumnName("updated_at");
+            });
+
             modelBuilder.Entity<PrincipleResourcePolicy>(entity =>
             {
                 entity.ToTable("principle_resource_policies");
@@ -348,9 +387,9 @@ namespace Api.Models
 
                 entity.HasIndex(e => e.BudgetId, "index_principle_resource_policies_on_budget_id");
 
-                entity.HasIndex(e => e.PrincipleGuid, "index_principle_resource_policies_on_principle_guid");
-
                 entity.HasIndex(e => e.ResourcePolicyId, "index_principle_resource_policies_on_resource_policy_id");
+
+                entity.HasIndex(e => e.PrincipleId, "index_reconciled_on_principle_id");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
@@ -368,10 +407,10 @@ namespace Api.Models
                     .HasMaxLength(255)
                     .HasColumnName("description");
 
-                entity.Property(e => e.PrincipleGuid)
+                entity.Property(e => e.PrincipleId)
                     .IsRequired()
                     .HasMaxLength(36)
-                    .HasColumnName("principle_guid");
+                    .HasColumnName("principle_id");
 
                 entity.Property(e => e.ResourcePolicyId)
                     .HasColumnType("bigint(20)")
@@ -386,20 +425,27 @@ namespace Api.Models
                     .HasForeignKey(d => d.BudgetId)
                     .HasConstraintName("fk_rails_c789988888");
 
+                entity.HasOne(d => d.Principle)
+                    .WithMany(p => p.PrincipleResourcePolicies)
+                    .HasForeignKey(d => d.PrincipleId)
+                    .HasConstraintName("fk_rails_c964474687");
+
                 entity.HasOne(d => d.ResourcePolicy)
                     .WithMany(p => p.PrincipleResourcePolicies)
                     .HasForeignKey(d => d.ResourcePolicyId)
                     .HasConstraintName("fk_rails_c789989897");
             });
 
-            modelBuilder.Entity<Reconciled>(entity =>
+            modelBuilder.Entity<Reconciliation>(entity =>
             {
-                entity.ToTable("reconciled");
+                entity.ToTable("reconciliations");
 
                 entity.HasCharSet("utf8")
                     .UseCollation("utf8_general_ci");
 
                 entity.HasIndex(e => e.BudgetId, "index_reconciled_on_budget_id");
+
+                entity.HasIndex(e => e.PrincipleId, "index_reconciled_on_principle_id");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
@@ -413,10 +459,10 @@ namespace Api.Models
                     .HasMaxLength(6)
                     .HasColumnName("created_at");
 
-                entity.Property(e => e.PrincipleGuid)
+                entity.Property(e => e.PrincipleId)
                     .IsRequired()
                     .HasMaxLength(36)
-                    .HasColumnName("principle_guid");
+                    .HasColumnName("principle_id");
 
                 entity.Property(e => e.ReconciledBalance).HasColumnName("reconciled_balance");
 
@@ -429,9 +475,14 @@ namespace Api.Models
                     .HasColumnName("updated_at");
 
                 entity.HasOne(d => d.Budget)
-                    .WithMany(p => p.Reconcileds)
+                    .WithMany(p => p.Reconciliations)
                     .HasForeignKey(d => d.BudgetId)
                     .HasConstraintName("fk_rails_c456789098");
+
+                entity.HasOne(d => d.Principle)
+                    .WithMany(p => p.Reconciliations)
+                    .HasForeignKey(d => d.PrincipleId)
+                    .HasConstraintName("fk_rails_c964474688");
             });
 
             modelBuilder.Entity<ResourcePolicy>(entity =>
@@ -488,7 +539,7 @@ namespace Api.Models
 
                 entity.HasIndex(e => e.BudgetId, "index_resource_users_on_budget_id");
 
-                entity.HasIndex(e => e.PrincipleGuid, "index_resource_users_on_principle_guid");
+                entity.HasIndex(e => e.PrincipleId, "index_resource_users_on_principle_id");
 
                 entity.HasIndex(e => e.ResourceId, "index_resource_users_on_resource_id");
 
@@ -504,10 +555,10 @@ namespace Api.Models
                     .HasMaxLength(6)
                     .HasColumnName("created_at");
 
-                entity.Property(e => e.PrincipleGuid)
+                entity.Property(e => e.PrincipleId)
                     .IsRequired()
                     .HasMaxLength(36)
-                    .HasColumnName("principle_guid");
+                    .HasColumnName("principle_id");
 
                 entity.Property(e => e.ResourceId)
                     .HasColumnType("bigint(20)")
@@ -526,6 +577,66 @@ namespace Api.Models
                     .WithMany(p => p.ResourceUsers)
                     .HasForeignKey(d => d.BudgetId)
                     .HasConstraintName("fk_rails_c964474634");
+
+                entity.HasOne(d => d.Principle)
+                    .WithMany(p => p.ResourceUsers)
+                    .HasForeignKey(d => d.PrincipleId)
+                    .HasConstraintName("fk_rails_c964474665");
+            });
+
+            modelBuilder.Entity<Setting>(entity =>
+            {
+                entity.ToTable("settings");
+
+                entity.HasCharSet("utf8")
+                    .UseCollation("utf8_general_ci");
+
+                entity.HasIndex(e => e.PrincipleId, "index_resource_users_on_principle_id");
+
+                entity.HasIndex(e => e.ResourceId, "index_resource_users_on_resource_id");
+
+                entity.HasIndex(e => e.ResourceType, "index_resource_users_on_resource_type");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("id");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasMaxLength(6)
+                    .HasColumnName("created_at");
+
+                entity.Property(e => e.Key)
+                    .IsRequired()
+                    .HasMaxLength(60)
+                    .HasColumnName("key");
+
+                entity.Property(e => e.PrincipleId)
+                    .IsRequired()
+                    .HasMaxLength(36)
+                    .HasColumnName("principle_id");
+
+                entity.Property(e => e.ResourceId)
+                    .HasColumnType("bigint(20)")
+                    .HasColumnName("resource_id");
+
+                entity.Property(e => e.ResourceType)
+                    .IsRequired()
+                    .HasMaxLength(60)
+                    .HasColumnName("resource_type");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasMaxLength(6)
+                    .HasColumnName("updated_at");
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("value");
+
+                entity.HasOne(d => d.Principle)
+                    .WithMany(p => p.Settings)
+                    .HasForeignKey(d => d.PrincipleId)
+                    .HasConstraintName("fk_rails_c964474699");
             });
 
             modelBuilder.Entity<TransactionHeader>(entity =>
@@ -535,15 +646,15 @@ namespace Api.Models
                 entity.HasCharSet("utf8")
                     .UseCollation("utf8_general_ci");
 
-                entity.HasIndex(e => e.ReconciledId, "index_reconciled_on_budget_id");
-
                 entity.HasIndex(e => e.AccountId, "index_transaction_headers_on_account_id");
 
                 entity.HasIndex(e => e.BudgetId, "index_transaction_headers_on_budget_id");
 
                 entity.HasIndex(e => e.ContactId, "index_transaction_headers_on_contact_id");
 
-                entity.HasIndex(e => e.PrincipleGuid, "index_transaction_headers_on_principle_guid");
+                entity.HasIndex(e => e.PrincipleId, "index_transaction_headers_on_principle_id");
+
+                entity.HasIndex(e => e.ReconciledId, "index_transaction_headers_on_reconciled_id");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("bigint(20)")
@@ -565,10 +676,10 @@ namespace Api.Models
                     .HasMaxLength(6)
                     .HasColumnName("created_at");
 
-                entity.Property(e => e.PrincipleGuid)
+                entity.Property(e => e.PrincipleId)
                     .IsRequired()
                     .HasMaxLength(36)
-                    .HasColumnName("principle_guid");
+                    .HasColumnName("principle_id");
 
                 entity.Property(e => e.Reconciled)
                     .HasColumnType("date")
@@ -607,6 +718,11 @@ namespace Api.Models
                     .WithMany(p => p.TransactionHeaders)
                     .HasForeignKey(d => d.ContactId)
                     .HasConstraintName("fk_rails_263cfb3632");
+
+                entity.HasOne(d => d.Principle)
+                    .WithMany(p => p.TransactionHeaders)
+                    .HasForeignKey(d => d.PrincipleId)
+                    .HasConstraintName("fk_rails_c964474689");
 
                 entity.HasOne(d => d.ReconciledNavigation)
                     .WithMany(p => p.TransactionHeaders)

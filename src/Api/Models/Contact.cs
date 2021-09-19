@@ -27,5 +27,5 @@ namespace Api.Models
         {
             return this.ContactType.IsOwnedBy(principleId);
         }
-    }
+}
 }

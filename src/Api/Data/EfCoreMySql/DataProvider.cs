@@ -21,7 +21,7 @@ namespace Api.Data.EfCoreMySql
                 budgets = (from b in dbContext.Budgets
                            join ru in dbContext.ResourceUsers
                            on b.BudgetId equals ru.BudgetId
-                           where ru.PrincipleGuid == strPrincipleId &&
+                           where ru.PrincipleId == strPrincipleId &&
                            ru.ResourceType == budgetType
                            select (new Budget
                            {
@@ -36,7 +36,7 @@ namespace Api.Data.EfCoreMySql
                                GroupCategories = b.GroupCategories,
                                Groups = b.Groups,
                                PrincipleResourcePolicies = b.PrincipleResourcePolicies,
-                               Reconcileds = b.Reconcileds,
+                               Reconciliations = b.Reconciliations,
                                ResourcePolicies = b.ResourcePolicies,
                                ResourceUsers = b.ResourceUsers,
                                TransactionHeaders = b.TransactionHeaders,
@@ -56,7 +56,7 @@ namespace Api.Data.EfCoreMySql
                 budget = (from b in dbContext.Budgets
                            join ru in dbContext.ResourceUsers
                            on b.BudgetId equals ru.BudgetId
-                           where ru.PrincipleGuid == strPrincipleId &&
+                           where ru.PrincipleId == strPrincipleId &&
                            ru.ResourceType == budgetType &&
                            ru.ResourceId == budgetId
                           select (new Budget
@@ -72,7 +72,7 @@ namespace Api.Data.EfCoreMySql
                               GroupCategories = b.GroupCategories,
                               Groups = b.Groups,
                               PrincipleResourcePolicies = b.PrincipleResourcePolicies,
-                              Reconcileds = b.Reconcileds,
+                              Reconciliations = b.Reconciliations,
                               ResourcePolicies = b.ResourcePolicies,
                               ResourceUsers = b.ResourceUsers,
                               TransactionHeaders = b.TransactionHeaders,

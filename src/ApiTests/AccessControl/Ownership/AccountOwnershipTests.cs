@@ -14,6 +14,10 @@ namespace ApiTests.AccessControl.Ownership
             using(var db = new BudgetContext())
             {
                 var principleId = Guid.NewGuid();
+                db.Principles.Add(new Principle
+                {
+                    Id = principleId.ToString()
+                });
                 var budget = new Budget();
                 var account = new Account(budget);
                 
@@ -24,7 +28,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleGuid = principleId.ToString(),
+                    PrincipleId = principleId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = account.GetType().Name,
                     BudgetId = budget.BudgetId
@@ -44,24 +48,17 @@ namespace ApiTests.AccessControl.Ownership
             using (var db = new BudgetContext())
             {
                 var principleId = Guid.NewGuid();
+                db.Principles.Add(new Principle
+                {
+                    Id = principleId.ToString()
+                });
                 var budget = new Budget();
                 var account = new Account(budget);
 
                 budget.Accounts.Add(account);
                 db.Budgets.Add(budget);
-
                 db.SaveChanges();
 
-                var resourceUser = new ResourceUser
-                {
-                    PrincipleGuid = Guid.NewGuid().ToString(),
-                    ResourceId = account.Id,
-                    ResourceType = account.GetType().Name,
-                    BudgetId = budget.BudgetId
-                };
-
-                db.ResourceUsers.Add(resourceUser);
-                db.SaveChanges();
                 isOwner = account.IsOwnedBy(principleId);
             }
             Assert.IsFalse(isOwner);
@@ -74,6 +71,10 @@ namespace ApiTests.AccessControl.Ownership
             using (var db = new BudgetContext())
             {
                 var principleId = Guid.NewGuid();
+                db.Principles.Add(new Principle
+                {
+                    Id = principleId.ToString()
+                });
                 var budget = new Budget();
                 var account = new Account(budget);
                 
@@ -86,7 +87,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleGuid = Guid.NewGuid().ToString(),
+                    PrincipleId = principleId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = account.GetType().Name,
                     BudgetId = budget2.BudgetId
@@ -106,6 +107,10 @@ namespace ApiTests.AccessControl.Ownership
             using (var db = new BudgetContext())
             {
                 var principleId = Guid.NewGuid();
+                db.Principles.Add(new Principle
+                {
+                    Id = principleId.ToString()
+                });
                 var budget = new Budget();
                 var account = new Account(budget);
                 
@@ -118,7 +123,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleGuid = Guid.NewGuid().ToString(),
+                    PrincipleId = principleId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = budget.GetType().Name,
                     BudgetId = budget2.BudgetId

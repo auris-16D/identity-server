@@ -18,7 +18,7 @@ namespace Api.Models
             GroupCategories = new HashSet<GroupCategory>();
             Groups = new HashSet<Group>();
             PrincipleResourcePolicies = new HashSet<PrincipleResourcePolicy>();
-            Reconcileds = new HashSet<Reconciled>();
+            Reconciliations = new HashSet<Reconciliation>();
             ResourcePolicies = new HashSet<ResourcePolicy>();
             ResourceUsers = new HashSet<ResourceUser>();
             TransactionHeaders = new HashSet<TransactionHeader>();
@@ -26,6 +26,7 @@ namespace Api.Models
         }
 
         public long BudgetId { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -36,7 +37,7 @@ namespace Api.Models
         public virtual ICollection<GroupCategory> GroupCategories { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<PrincipleResourcePolicy> PrincipleResourcePolicies { get; set; }
-        public virtual ICollection<Reconciled> Reconcileds { get; set; }
+        public virtual ICollection<Reconciliation> Reconciliations { get; set; }
         public virtual ICollection<ResourcePolicy> ResourcePolicies { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
@@ -50,7 +51,7 @@ namespace Api.Models
             {
                 exists = db.ResourceUsers.Any(
                     ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleGuid == strPrincipleId &&
+                    ru.PrincipleId == strPrincipleId &&
                     ru.ResourceType == this.GetType().Name &&
                     ru.ResourceId == this.BudgetId
                     );
@@ -62,5 +63,6 @@ namespace Api.Models
         {
             return this.IsOwnedBy(principleId);
         }
+
     }
 }

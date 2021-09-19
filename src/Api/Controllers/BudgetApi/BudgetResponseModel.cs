@@ -37,7 +37,7 @@ namespace Api.Controllers.BudgetApi
                 ContactIds = budget.Contacts.Select(co => new { co.Id, co.Name }).ToDictionary(x => x.Id, x => x.Name),
                 GroupCategoryIds = budget.GroupCategories.Select(gc => gc.Id).ToList(),
                 GroupIds = budget.Groups.Select(g => g.Id).ToList(),
-                Reconciled = budget.Reconcileds.Select(r => r.Id).ToList(),
+                Reconciled = budget.Reconciliations.Select(r => r.Id).ToList(),
                 ResourcePolicyIds = budget.ResourcePolicies.Select(rp => rp.Id).ToList(),
                 ResourceUserIds = budget.ResourceUsers.Select(ru => ru.Id).ToList(),
                 TransactionHeaderIds = budget.TransactionHeaders.Select(th => th.Id).ToList(),
