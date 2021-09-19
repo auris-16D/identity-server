@@ -12,6 +12,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,10 @@
     <None Remove="AccessControl\Extensions\" />
     <None Remove="Library\Exceptions\" />
     <None Remove="Library\Common\" />
+    <None Remove="Data\" />
+    <None Remove="Data\EfCoreMySql\" />
+    <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <None Remove="Controllers\Budget\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccessControl\" />
@@ -31,5 +36,8 @@
     <Folder Include="AccessControl\Extensions\" />
     <Folder Include="Library\Exceptions\" />
     <Folder Include="Library\Enums\" />
+    <Folder Include="Data\" />
+    <Folder Include="Data\EfCoreMySql\" />
+    <Folder Include="Controllers\BudgetApi\" />
   </ItemGroup>
 </Project>

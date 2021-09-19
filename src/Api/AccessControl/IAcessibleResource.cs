@@ -1,4 +1,6 @@
 ﻿using System;
+using Api.Controllers;
+
 namespace Api.AccessControl
 {
     public interface IAccessibleResource

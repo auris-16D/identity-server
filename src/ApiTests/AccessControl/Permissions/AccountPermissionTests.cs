@@ -3,98 +3,77 @@ using Api.AccessControl.Extensions;
 using Api.Models;
 using NUnit.Framework;
 using Api.Library.Enums;
+using Api.AccessControl;
 
 namespace ApiTests.AccessControl.Permissions
 {
     public class AccountPermissionTests : TestBase
     {
         [Test]
-        public void CreateAccount_Success()
+        public void AccessAccount_Success()
         {
-            var principleId = Guid.NewGuid();
-            var account = SetupAccountAndPermissions(principleId, CrudAction.Create);
-            var canCreate = account.CanCreate(principleId.ToString());
-            Assert.IsTrue(canCreate);
-        }
-
-        [Test]
-        public void ReadAccount_Success()
-        {
-            var principleId = Guid.NewGuid();
-            var account = SetupAccountAndPermissions(principleId, CrudAction.Read);
-            var canRead = account.CanRead(principleId.ToString());
-            Assert.IsTrue(canRead);
-        }
-
-        [Test]
-        public void UpdateAccount_Success()
-        {
-            var principleId = Guid.NewGuid();
-            var account = SetupAccountAndPermissions(principleId, CrudAction.Update);
-
-            var canUpdate = account.CanUpdate(principleId.ToString());
-            Assert.IsTrue(canUpdate);
-        }
-
-        [Test]
-        public void DeleteAccount_Success()
-        {
-            var principleId = Guid.NewGuid();
-            var account = SetupAccountAndPermissions(principleId, CrudAction.Delete);
-
-            var canDelete = account.CanDelete(principleId.ToString());
-            Assert.IsTrue(canDelete);
-        }
-
-        [Test]
-        public void CreateAccount_Fail_No_ResourcePolicy()
-        {
-            bool canCreate = true;
-            using (var db = new BudgetContext())
+            foreach(var action in Enum.GetValues<CrudAction>())
             {
+                var canAccess = false;
                 var principleId = Guid.NewGuid();
-                var budget = new Budget();
-                db.Budgets.Add(budget);
-                db.SaveChanges();
-
-                // unsaved account
-                var account = new Account(budget);
-                //account.Budget = budget;
-                budget.Accounts.Add(account);
-
-                canCreate = account.CanCreate(principleId.ToString());
-            }
-            Assert.IsFalse(canCreate);
+                var account = SetupAccountAndPermissions(principleId, action);
+                canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                Assert.IsTrue(canAccess,$"Failed to access Account for Action: {action}");
+            } 
         }
 
-       
-
         [Test]
-        public void ReadAccount_Fail_No_PrincipleResourcePolicy()
+        public void AccessAccount_Fail_No_ResourcePolicy()
         {
-            bool canRead = true;
-            using (var db = new BudgetContext())
+            foreach (var action in Enum.GetValues<CrudAction>())
             {
+                bool canAccess = true;
+                Account account;
                 var principleId = Guid.NewGuid();
-                var budget = new Budget();
-                db.Budgets.Add(budget);
-                var resourcePolicy = new ResourcePolicy
+                using (var db = new BudgetContext())
                 {
-                    BudgetId = budget.BudgetId,
-                    ResourceName = "Account",
-                    ResourceAction = CrudAction.Read.ToString(),
-                    Description = "Read Account"
-                };
+                    var budget = new Budget();
+                    db.Budgets.Add(budget);
+                    db.SaveChanges();
 
-                budget.ResourcePolicies.Add(resourcePolicy);
-                var account = new Account(budget);
-                account.BudgetId = budget.BudgetId;
-                budget.Accounts.Add(account);
-                db.SaveChanges();
-
-                canRead = account.CanRead(principleId.ToString());
+                    // unsaved account
+                    account = new Account(budget);
+                    budget.Accounts.Add(account);
+                }
+                canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                Assert.IsFalse(canAccess, $"Access granted to Account for Action: {action} without a Resourcec Policy");
             }
-            Assert.IsFalse(canRead);
+        }
+
+        [Test]
+        public void AccessAccount_Fail_No_PrincipleResourcePolicy()
+        {
+            foreach (var action in Enum.GetValues<CrudAction>())
+            {
+                bool canAccess = true;
+                using (var db = new BudgetContext())
+                {
+                    var principleId = Guid.NewGuid();
+                    var budget = new Budget();
+                    db.Budgets.Add(budget);
+                    var resourcePolicy = new ResourcePolicy
+                    {
+                        BudgetId = budget.BudgetId,
+                        ResourceName = "Account",
+                        ResourceAction = action.ToString(),
+                        Description = $"{action} Account"
+                    };
+
+                    budget.ResourcePolicies.Add(resourcePolicy);
+                    var account = new Account(budget);
+                    account.BudgetId = budget.BudgetId;
+                    budget.Accounts.Add(account);
+                    db.SaveChanges();
+
+                    canAccess = CanAccessForAction(principleId.ToString(), action, account);
+                }
+                Assert.IsFalse(canAccess);
+            }
         }
 
         private Account SetupAccountAndPermissions(Guid principleId, CrudAction crudAction)
@@ -103,7 +82,6 @@ namespace ApiTests.AccessControl.Permissions
             Account account = new Account(budget);
             using (var db = new BudgetContext())
             {
-                
                 db.Budgets.Add(budget);
                 var resourcePolicy = new ResourcePolicy
                 {
@@ -149,6 +127,40 @@ namespace ApiTests.AccessControl.Permissions
                 }
             }
             return account;
+        }
+
+        private bool CanAccessForAction(string principleId, CrudAction action, IAccessibleResource resource)
+        {
+            var canAccess = false;
+            switch (action)
+            {
+                case CrudAction.Create:
+                    canAccess = resource.CanCreate(principleId.ToString());
+                    break;
+                case CrudAction.Read:
+                    canAccess = resource.CanRead(principleId.ToString());
+                    break;
+                case CrudAction.Update:
+                    canAccess = resource.CanUpdate(principleId.ToString());
+                    break;
+                case CrudAction.Delete:
+                    canAccess = resource.CanDelete(principleId.ToString());
+                    break;
+                case CrudAction.Full:
+                    canAccess = resource.CanCreate(principleId.ToString());
+                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Create} without Full permissions");
+
+                    canAccess = resource.CanRead(principleId.ToString());
+                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Read} without Full permissions");
+
+                    canAccess = resource.CanUpdate(principleId.ToString());
+                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Update} without Full permissions");
+
+                    canAccess = resource.CanDelete(principleId.ToString());
+                    Assert.IsFalse(canAccess, $"Access granted to Account for Action: {CrudAction.Delete} without Full permissions");
+                    break;
+            }
+            return canAccess;
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Security.Claims;
 
 namespace Budget.Controllers
 {
@@ -42,12 +43,14 @@ namespace Budget.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var client = new HttpClient();
+            var userId = User.FindFirstValue("sub");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var content = string.Empty;
 
             try
             {
-                content = await client.GetStringAsync("http://localhost:6001/identity");
+                content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                //content = await client.GetStringAsync("http://localhost:6001/budget");
             }
             catch (HttpRequestException ex)
             {
@@ -64,7 +67,7 @@ namespace Budget.Controllers
                         RefreshToken = refreshToken
                     });
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.AccessToken);
-                    content = await client.GetStringAsync("http://localhost:6001/identity");
+                    content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
                 } 
             }
             

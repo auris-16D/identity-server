@@ -2,10 +2,11 @@
 using Api.Library.Extensions;
 using Api.Models;
 using Api.Library.Enums;
+using System;
 
 namespace Api.AccessControl.Extensions
 {
-    public static class IAccessibleResourceExtensions
+    public static class AccessibleResourceExtensions
     {
         public static bool CanCreate(this IAccessibleResource accessibleResource, string principleId)
         {
@@ -33,6 +34,11 @@ namespace Api.AccessControl.Extensions
 
         private static bool CanAccess(IAccessibleResource accessibleResource, string principleId, CrudAction crudAction)
         {
+            if (accessibleResource == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             bool isaccessable = false;
 
             using (var db = new BudgetContext())

@@ -26,10 +26,14 @@
     <None Remove="AccessControl\" />
     <None Remove="AccessControl\Ownership\" />
     <None Remove="AccessControl\Permissions\" />
+    <None Remove="Data\" />
+    <None Remove="Data\DataProviderTests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccessControl\" />
     <Folder Include="AccessControl\Ownership\" />
     <Folder Include="AccessControl\Permissions\" />
+    <Folder Include="Data\" />
+    <Folder Include="Data\DataProviderTests\" />
   </ItemGroup>
 </Project>
