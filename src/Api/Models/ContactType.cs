@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Api.AccessControl;
 
 #nullable disable
 
@@ -18,5 +19,10 @@ namespace Api.Models
         public DateTime UpdatedAt { get; set; }
 
         public virtual ICollection<Contact> Contacts { get; set; }
+
+        public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

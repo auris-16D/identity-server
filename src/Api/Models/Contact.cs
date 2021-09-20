@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Api.AccessControl;
 
 #nullable disable
 
@@ -27,5 +28,10 @@ namespace Api.Models
         {
             return this.ContactType.IsOwnedBy(principleId);
         }
-}
+
+        public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Api.AccessControl;
 
 #nullable disable
 
@@ -21,5 +22,10 @@ namespace Api.Models
         public virtual Account Account { get; set; }
         public virtual Budget Budget { get; set; }
         public virtual ICollection<GroupCategory> GroupCategories { get; set; }
+
+        public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

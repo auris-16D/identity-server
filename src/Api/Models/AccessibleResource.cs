@@ -30,9 +30,6 @@ namespace Api.Models
             return this.IsOwnedBy(principleId);
         }
 
-        public TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource);
     }
 }

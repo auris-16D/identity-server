@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Api.AccessControl;
 
 #nullable disable
 
@@ -33,6 +34,11 @@ namespace Api.Models
         public override bool IsParentOwnedBy(Guid principleId)
         {
             return this.Account.IsOwnedBy(principleId);
+        }
+
+        public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Api.AccessControl;
 
 #nullable disable
 
@@ -16,5 +17,10 @@ namespace Api.Models
         public virtual Budget Budget { get; set; }
         public virtual Principle Principle { get; set; }
         public virtual ResourcePolicy ResourcePolicy { get; set; }
+
+        public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
