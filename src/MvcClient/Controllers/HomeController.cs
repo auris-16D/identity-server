@@ -49,7 +49,8 @@ namespace Budget.Controllers
 
             try
             {
-                content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                content = await client.GetStringAsync("http://localhost:6001/identity");
+                //content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
                 //content = await client.GetStringAsync("http://localhost:6001/budget");
             }
             catch (HttpRequestException ex)
@@ -67,7 +68,8 @@ namespace Budget.Controllers
                         RefreshToken = refreshToken
                     });
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.AccessToken);
-                    content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                    //content = await client.GetStringAsync("http://localhost:6001/budget?principleId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                    content = await client.GetStringAsync("http://localhost:6001/identity");
                 } 
             }
             
