@@ -28,6 +28,8 @@
     <None Remove="Data\EfCoreMySql\" />
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="Controllers\Budget\" />
+    <None Remove="Controllers\PrincipleApi\" />
+    <None Remove="Library\ErrorMessages\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccessControl\" />
@@ -39,5 +41,7 @@
     <Folder Include="Data\" />
     <Folder Include="Data\EfCoreMySql\" />
     <Folder Include="Controllers\BudgetApi\" />
+    <Folder Include="Controllers\PrincipleApi\" />
+    <Folder Include="Library\Common\" />
   </ItemGroup>
 </Project>

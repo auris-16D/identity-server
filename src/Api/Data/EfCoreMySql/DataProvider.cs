@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Api.Controllers.PrincipleApi;
 using Api.Models;
 
 namespace Api.Data.EfCoreMySql
@@ -9,6 +10,17 @@ namespace Api.Data.EfCoreMySql
     {
         public DataProvider()
         { }
+
+        public bool CreatePrinciple(Principle principle)
+        {
+            var saved = -1;
+            using(var db = new BudgetContext())
+            {
+                db.Principles.Add(principle);
+                saved = db.SaveChanges();
+            }
+            return saved > 0;
+        }
 
         public List<Budget> GetAllBudgetsForPrinciple(Guid principleId)
         {
