@@ -40,9 +40,9 @@ namespace Api.Models
             }
         }
 
-        public override bool IsParentOwnedBy(Guid principleId)
+        public override bool IsParentOwnedBy(Guid principalId)
         {
-            return this.Budget.IsOwnedBy(principleId);
+            return this.Budget.IsOwnedBy(principalId);
         }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)

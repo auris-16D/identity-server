@@ -8,31 +8,31 @@ namespace Api.AccessControl.Extensions
 {
     public static class AccessibleResourceExtensions
     {
-        public static bool CanCreate(this IAccessibleResource accessibleResource, string principleId)
+        public static bool CanCreate(this IAccessibleResource accessibleResource, string principalId)
         {
-            if(!accessibleResource.IsParentOwnedBy(principleId.ToGuid()))
+            if(!accessibleResource.IsParentOwnedBy(principalId.ToGuid()))
             {
                 return false;
             }
-            return CanAccess(accessibleResource, principleId, CrudAction.Create);
+            return CanAccess(accessibleResource, principalId, CrudAction.Create);
         }
 
-        public static bool CanRead(this IAccessibleResource accessibleResource, string principleId)
+        public static bool CanRead(this IAccessibleResource accessibleResource, string principalId)
         {
-            return CanAccess(accessibleResource, principleId, CrudAction.Read);
+            return CanAccess(accessibleResource, principalId, CrudAction.Read);
         }
 
-        public static bool CanUpdate(this IAccessibleResource accessibleResource, string principleId)
+        public static bool CanUpdate(this IAccessibleResource accessibleResource, string principalId)
         {
-            return CanAccess(accessibleResource, principleId, CrudAction.Update);
+            return CanAccess(accessibleResource, principalId, CrudAction.Update);
         }
 
-        public static bool CanDelete(this IAccessibleResource accessibleResource, string principleId)
+        public static bool CanDelete(this IAccessibleResource accessibleResource, string principalId)
         {
-            return CanAccess(accessibleResource, principleId, CrudAction.Delete);
+            return CanAccess(accessibleResource, principalId, CrudAction.Delete);
         }
 
-        private static bool CanAccess(IAccessibleResource accessibleResource, string principleId, CrudAction crudAction)
+        private static bool CanAccess(IAccessibleResource accessibleResource, string principalId, CrudAction crudAction)
         {
             if (accessibleResource == null)
             {
@@ -52,12 +52,12 @@ namespace Api.AccessControl.Extensions
 
                if(policy != null)
                {
-                    var principlePolicy = db.PrincipleResourcePolicies.Any(prp =>
-                    prp.PrincipleId == principleId &&
+                    var principalPolicy = db.PrincipalResourcePolicies.Any(prp =>
+                    prp.PrincipalId == principalId &&
                     prp.BudgetId == accessibleResource.BudgetId &&
                     prp.ResourcePolicyId == policy.Id
                     );
-                    isaccessable = principlePolicy;
+                    isaccessable = principalPolicy;
                 }
             }
             return isaccessable;

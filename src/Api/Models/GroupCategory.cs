@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Api.AccessControl;
 
@@ -17,9 +17,9 @@ namespace Api.Models
         public virtual Category Category { get; set; }
         public virtual Group Group { get; set; }
 
-        public override bool IsParentOwnedBy(Guid principleId)
+        public override bool IsParentOwnedBy(Guid principalId)
         {
-            return this.Group.IsOwnedBy(principleId);
+            return this.Group.IsOwnedBy(principalId);
         }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)

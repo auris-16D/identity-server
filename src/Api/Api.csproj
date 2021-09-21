@@ -25,11 +25,20 @@
     <None Remove="Library\Exceptions\" />
     <None Remove="Library\Common\" />
     <None Remove="Data\" />
-    <None Remove="Data\EfCoreMySql\" />
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="Controllers\Budget\" />
-    <None Remove="Controllers\PrincipleApi\" />
     <None Remove="Library\ErrorMessages\" />
+    <None Remove="Controllers\V1\" />
+    <None Remove="Controllers\V1\BudgetApi\" />
+    <None Remove="Controllers\V1\PrincipleApi\" />
+    <None Remove="DependencyGroups\" />
+    <None Remove="Data\Interfaces\" />
+    <None Remove="Data\Repositories\" />
+    <None Remove="Data\Commands\" />
+    <None Remove="Data\Interfaces\Repositories\" />
+    <None Remove="Data\Interfaces\Commands\" />
+    <None Remove="Data\Interfaces\Queries\" />
+    <None Remove="Data\Queries\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AccessControl\" />
@@ -39,9 +48,17 @@
     <Folder Include="Library\Exceptions\" />
     <Folder Include="Library\Enums\" />
     <Folder Include="Data\" />
-    <Folder Include="Data\EfCoreMySql\" />
-    <Folder Include="Controllers\BudgetApi\" />
-    <Folder Include="Controllers\PrincipleApi\" />
     <Folder Include="Library\Common\" />
+    <Folder Include="Controllers\V1\" />
+    <Folder Include="Controllers\V1\BudgetApi\" />
+    <Folder Include="Controllers\V1\PrincipalApi\" />
+    <Folder Include="DependencyGroups\" />
+    <Folder Include="Data\Interfaces\" />
+    <Folder Include="Data\Repositories\" />
+    <Folder Include="Data\Commands\" />
+    <Folder Include="Data\Interfaces\Repositories\" />
+    <Folder Include="Data\Interfaces\Commands\" />
+    <Folder Include="Data\Interfaces\Queries\" />
+    <Folder Include="Data\Queries\" />
   </ItemGroup>
 </Project>

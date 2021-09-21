@@ -1,23 +1,31 @@
-﻿using Api.Data.EfCoreMySql;
+﻿using Api.Controllers.V1.Principals;
+using Api.Data.Interfaces.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Api.Controllers.PrincipleApi
+namespace Api.Controllers.V1.Principals
 {
     [ApiController]
-    [Route("api/principles")]
+    [Route("api/v1/principals")]
     public class PrinciplesController : ControllerBase
     {
+        private ICreatePrincipalCommand createPrincipalCommand;
+
+        public PrinciplesController(ICreatePrincipalCommand createPrincipalCommand)
+        {
+            this.createPrincipalCommand = createPrincipalCommand;
+        }
+
         [HttpPost]
         [Consumes("application/json")]
-        public IActionResult Create(PrincipleRequestModel principleModel)
+        public IActionResult Create(PrincipalRequestModel principalModel)
         {
             bool success = false;
-            var principle = principleModel.ToPrinciple();
+            var principal = principalModel.ToPrincipal();
             try
             {
-                success = new DataProvider().CreatePrinciple(principle);
+                success = this.createPrincipalCommand.CreatePrincipal(principal);
             }
             catch (System.Exception ex)
             {
@@ -30,7 +38,7 @@ namespace Api.Controllers.PrincipleApi
             
             if (success)
             {
-                return StatusCode(201, principle.Id);
+                return StatusCode(201, principal.Id);
             }
             else
             {

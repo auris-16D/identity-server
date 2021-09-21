@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Api.AccessControl;
 
@@ -19,9 +19,9 @@ namespace Api.Models
         public virtual Category Category { get; set; }
         public virtual TransactionHeader TransactionHeader { get; set; }
 
-        public override bool IsOwnedBy(Guid principleId)
+        public override bool IsOwnedBy(Guid principalId)
         {
-            return this.TransactionHeader.IsOwnedBy(principleId);
+            return this.TransactionHeader.IsOwnedBy(principalId);
         }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)

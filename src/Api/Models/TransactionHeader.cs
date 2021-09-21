@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Api.AccessControl;
 
@@ -13,7 +13,7 @@ namespace Api.Models
             TransactionItems = new HashSet<TransactionItem>();
         }
 
-        public string PrincipleId { get; set; }
+        public string PrincipalId { get; set; }
         public DateTime TransactionDate { get; set; }
         public long AccountId { get; set; }
         public long ContactId { get; set; }
@@ -27,13 +27,13 @@ namespace Api.Models
         public virtual Account Account { get; set; }
         public virtual Budget Budget { get; set; }
         public virtual Contact Contact { get; set; }
-        public virtual Principle Principle { get; set; }
+        public virtual Principal Principal { get; set; }
         public virtual Reconciliation ReconciledNavigation { get; set; }
         public virtual ICollection<TransactionItem> TransactionItems { get; set; }
 
-        public override bool IsParentOwnedBy(Guid principleId)
+        public override bool IsParentOwnedBy(Guid principalId)
         {
-            return this.Account.IsOwnedBy(principleId);
+            return this.Account.IsOwnedBy(principalId);
         }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)

@@ -4,7 +4,7 @@ using System.Linq;
 using Api.AccessControl;
 using Api.Models;
 
-namespace Api.Controllers.BudgetApi
+namespace Api.Controllers.V1.Budgets
 {
     public class BudgetResponseModel : IResponseModel
     {

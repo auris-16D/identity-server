@@ -9,15 +9,15 @@ namespace Api.Models
         public long Id { get; set; }
         public long BudgetId { get; set; }
 
-        public virtual bool IsOwnedBy(Guid principleId)
+        public virtual bool IsOwnedBy(Guid principalId)
         {
-            var strPrincipleId = principleId.ToString();
+            var strPrincipalId = principalId.ToString();
             bool exists = false;
             using (var db = new BudgetContext())
             {
                 exists = db.ResourceUsers.Any(
                     ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleId == strPrincipleId &&
+                    ru.PrincipalId == strPrincipalId &&
                     ru.ResourceType == this.GetType().Name &&
                     ru.ResourceId == this.Id
                     );
@@ -25,9 +25,9 @@ namespace Api.Models
             return exists;
         }
 
-        public virtual bool IsParentOwnedBy(Guid principleId)
+        public virtual bool IsParentOwnedBy(Guid principalId)
         {
-            return this.IsOwnedBy(principleId);
+            return this.IsOwnedBy(principalId);
         }
 
         public abstract TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource);

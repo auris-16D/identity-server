@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Api.AccessControl;
-using Api.Controllers.BudgetApi;
 
 #nullable disable
 
@@ -17,7 +16,7 @@ namespace Api.Models
             Contacts = new HashSet<Contact>();
             GroupCategories = new HashSet<GroupCategory>();
             Groups = new HashSet<Group>();
-            PrincipleResourcePolicies = new HashSet<PrincipleResourcePolicy>();
+            PrincipalResourcePolicies = new HashSet<PrincipalResourcePolicy>();
             Reconciliations = new HashSet<Reconciliation>();
             ResourcePolicies = new HashSet<ResourcePolicy>();
             ResourceUsers = new HashSet<ResourceUser>();
@@ -36,22 +35,22 @@ namespace Api.Models
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<GroupCategory> GroupCategories { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual ICollection<PrincipleResourcePolicy> PrincipleResourcePolicies { get; set; }
+        public virtual ICollection<PrincipalResourcePolicy> PrincipalResourcePolicies { get; set; }
         public virtual ICollection<Reconciliation> Reconciliations { get; set; }
         public virtual ICollection<ResourcePolicy> ResourcePolicies { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
         public virtual ICollection<TransactionItem> TransactionItems { get; set; }
 
-        public bool IsOwnedBy(Guid principleId)
+        public bool IsOwnedBy(Guid principalId)
         {
-            var strPrincipleId = principleId.ToString();
+            var strPrincipalId = principalId.ToString();
             bool exists = false;
             using (var db = new BudgetContext())
             {
                 exists = db.ResourceUsers.Any(
                     ru => ru.BudgetId == this.BudgetId &&
-                    ru.PrincipleId == strPrincipleId &&
+                    ru.PrincipalId == strPrincipalId &&
                     ru.ResourceType == this.GetType().Name &&
                     ru.ResourceId == this.BudgetId
                     );
@@ -59,9 +58,9 @@ namespace Api.Models
             return exists;
         }
 
-        public bool IsParentOwnedBy(Guid principleId)
+        public bool IsParentOwnedBy(Guid principalId)
         {
-            return this.IsOwnedBy(principleId);
+            return this.IsOwnedBy(principalId);
         }
 
     }

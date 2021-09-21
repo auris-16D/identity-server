@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using Api.Models;
 
-namespace Api.Controllers.PrincipleApi
+namespace Api.Controllers.V1.Principals
 {
-    public class PrincipleRequestModel
+    public class PrincipalRequestModel
     {
         [Required]
         public Guid Id { get; set; }
@@ -15,9 +15,9 @@ namespace Api.Controllers.PrincipleApi
         [Required]
         public string Email { get; set; }
 
-        public Principle ToPrinciple()
+        public Principal ToPrincipal()
         {
-            return new Principle
+            return new Principal
             {
                 Id = this.Id.ToString(),
                 FirstName = this.FirstName,

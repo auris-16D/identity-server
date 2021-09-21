@@ -13,10 +13,10 @@ namespace ApiTests.AccessControl.Ownership
             bool isOwner = false;
             using(var db = new BudgetContext())
             {
-                var principleId = Guid.NewGuid();
-                db.Principles.Add(new Principle
+                var principalId = Guid.NewGuid();
+                db.Principals.Add(new Principal
                 {
-                    Id = principleId.ToString()
+                    Id = principalId.ToString()
                 });
                 var budget = new Budget();
                 var account = new Account(budget);
@@ -28,7 +28,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleId = principleId.ToString(),
+                    PrincipalId = principalId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = account.GetType().Name,
                     BudgetId = budget.BudgetId
@@ -36,7 +36,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 db.ResourceUsers.Add(resourceUser);
                 db.SaveChanges();
-                isOwner = account.IsOwnedBy(principleId);
+                isOwner = account.IsOwnedBy(principalId);
             }
             Assert.IsTrue(isOwner);
         }
@@ -47,10 +47,10 @@ namespace ApiTests.AccessControl.Ownership
             bool isOwner = true;
             using (var db = new BudgetContext())
             {
-                var principleId = Guid.NewGuid();
-                db.Principles.Add(new Principle
+                var principalId = Guid.NewGuid();
+                db.Principals.Add(new Principal
                 {
-                    Id = principleId.ToString()
+                    Id = principalId.ToString()
                 });
                 var budget = new Budget();
                 var account = new Account(budget);
@@ -59,7 +59,7 @@ namespace ApiTests.AccessControl.Ownership
                 db.Budgets.Add(budget);
                 db.SaveChanges();
 
-                isOwner = account.IsOwnedBy(principleId);
+                isOwner = account.IsOwnedBy(principalId);
             }
             Assert.IsFalse(isOwner);
         }
@@ -70,10 +70,10 @@ namespace ApiTests.AccessControl.Ownership
             bool isOwner = true;
             using (var db = new BudgetContext())
             {
-                var principleId = Guid.NewGuid();
-                db.Principles.Add(new Principle
+                var principalId = Guid.NewGuid();
+                db.Principals.Add(new Principal
                 {
-                    Id = principleId.ToString()
+                    Id = principalId.ToString()
                 });
                 var budget = new Budget();
                 var account = new Account(budget);
@@ -87,7 +87,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleId = principleId.ToString(),
+                    PrincipalId = principalId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = account.GetType().Name,
                     BudgetId = budget2.BudgetId
@@ -95,7 +95,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 db.ResourceUsers.Add(resourceUser);
                 db.SaveChanges();
-                isOwner = account.IsOwnedBy(principleId);
+                isOwner = account.IsOwnedBy(principalId);
             }
             Assert.IsFalse(isOwner);
         }
@@ -106,10 +106,10 @@ namespace ApiTests.AccessControl.Ownership
             bool isOwner = true;
             using (var db = new BudgetContext())
             {
-                var principleId = Guid.NewGuid();
-                db.Principles.Add(new Principle
+                var principalId = Guid.NewGuid();
+                db.Principals.Add(new Principal
                 {
-                    Id = principleId.ToString()
+                    Id = principalId.ToString()
                 });
                 var budget = new Budget();
                 var account = new Account(budget);
@@ -123,7 +123,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 var resourceUser = new ResourceUser
                 {
-                    PrincipleId = principleId.ToString(),
+                    PrincipalId = principalId.ToString(),
                     ResourceId = account.Id,
                     ResourceType = budget.GetType().Name,
                     BudgetId = budget2.BudgetId
@@ -131,7 +131,7 @@ namespace ApiTests.AccessControl.Ownership
 
                 db.ResourceUsers.Add(resourceUser);
                 db.SaveChanges();
-                isOwner = account.IsOwnedBy(principleId);
+                isOwner = account.IsOwnedBy(principalId);
             }
             Assert.IsFalse(isOwner);
         }

@@ -10,7 +10,7 @@ namespace Api.Library.Common
 
         public static class Fields
         {
-            public const string PrincipleId = "principleId";
+            public const string PrincipalId = "principalId";
         }
     }
 }

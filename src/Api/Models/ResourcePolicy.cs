@@ -10,7 +10,7 @@ namespace Api.Models
     {
         public ResourcePolicy()
         {
-            PrincipleResourcePolicies = new HashSet<PrincipleResourcePolicy>();
+            PrincipalResourcePolicies = new HashSet<PrincipalResourcePolicy>();
         }
 
         public string ResourceName { get; set; }
@@ -20,7 +20,7 @@ namespace Api.Models
         public DateTime UpdatedAt { get; set; }
 
         public virtual Budget Budget { get; set; }
-        public virtual ICollection<PrincipleResourcePolicy> PrincipleResourcePolicies { get; set; }
+        public virtual ICollection<PrincipalResourcePolicy> PrincipalResourcePolicies { get; set; }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)
         {

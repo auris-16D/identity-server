@@ -24,9 +24,9 @@ namespace Api.Models
         public virtual ContactType ContactType { get; set; }
         public virtual ICollection<TransactionHeader> TransactionHeaders { get; set; }
 
-        public override bool IsParentOwnedBy(Guid principleId)
+        public override bool IsParentOwnedBy(Guid principalId)
         {
-            return this.ContactType.IsOwnedBy(principleId);
+            return this.ContactType.IsOwnedBy(principalId);
         }
 
         public override TResponseModel ToResponseModel<TResponseModel>(IAccessibleResource accessibleResource)

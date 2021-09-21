@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Api.Models
 {
-    public partial class Principle
+    public partial class Principal
     {
-        public Principle()
+        public Principal()
         {
-            PrincipleResourcePolicies = new HashSet<PrincipleResourcePolicy>();
+            PrincipalResourcePolicies = new HashSet<PrincipalResourcePolicy>();
             Reconciliations = new HashSet<Reconciliation>();
             ResourceUsers = new HashSet<ResourceUser>();
             Settings = new HashSet<Setting>();
@@ -23,7 +23,7 @@ namespace Api.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public virtual ICollection<PrincipleResourcePolicy> PrincipleResourcePolicies { get; set; }
+        public virtual ICollection<PrincipalResourcePolicy> PrincipalResourcePolicies { get; set; }
         public virtual ICollection<Reconciliation> Reconciliations { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<Setting> Settings { get; set; }
