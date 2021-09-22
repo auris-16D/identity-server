@@ -7,13 +7,6 @@ namespace ApiTests.AccessControl
 {
     public abstract class TestBase
     {
-        private IBudgetsReadRepository budgetsReadRepository;
-
-        public TestBase(IBudgetsReadRepository budgetsReadRepository)
-        {
-            this.budgetsReadRepository = budgetsReadRepository;
-        }
-
         public TestBase()
         { }
 
