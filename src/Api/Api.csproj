@@ -50,7 +50,7 @@
     <Folder Include="Data\" />
     <Folder Include="Library\Common\" />
     <Folder Include="Controllers\V1\" />
-    <Folder Include="Controllers\V1\BudgetApi\" />
+    <Folder Include="Controllers\V1\Budgets\" />
     <Folder Include="Controllers\V1\PrincipalApi\" />
     <Folder Include="DependencyGroups\" />
     <Folder Include="Data\Interfaces\" />

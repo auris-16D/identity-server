@@ -1,7 +1,5 @@
-﻿using Api.Data.Commands;
-using Api.Data.Interfaces.Repositories;
+using Api.Data.Commands;
 using Api.Data.Interfaces.Commands;
-using Api.Data.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

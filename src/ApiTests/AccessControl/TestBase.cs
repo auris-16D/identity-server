@@ -1,13 +1,21 @@
 ﻿using System;
+using Api.Data.Interfaces.Queries;
+using Api.Data.Interfaces.Repositories;
 using NUnit.Framework;
 
 namespace ApiTests.AccessControl
 {
     public abstract class TestBase
     {
-        public TestBase()
+        private IBudgetsReadRepository budgetsReadRepository;
+
+        public TestBase(IBudgetsReadRepository budgetsReadRepository)
         {
+            this.budgetsReadRepository = budgetsReadRepository;
         }
+
+        public TestBase()
+        { }
 
         [SetUp]
         public virtual void Setup()
