@@ -2,7 +2,7 @@
   "profiles": {
     "SelfHost": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "applicationUrl": "https://localhost:5005",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -10,7 +10,7 @@
     },
     "IdentityServerAspNetIdentity": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "applicationUrl": "https://localhost:49004;http://localhost:28594",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

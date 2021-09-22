@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     //[Authorize]
-    [Microsoft.AspNetCore.Mvc.Route("identity")]
+    [Route("identity")]
     public class IdentityController : ControllerBase
     {
         [HttpGet]
