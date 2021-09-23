@@ -60,7 +60,7 @@ namespace Budget.Controllers
                     var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
                     var response = await client.RequestRefreshTokenAsync(new RefreshTokenRequest
                     {
-                        Address = "https://localhost:5005/connect/token",
+                        Address = "http://localhost:5005/connect/token",
 
                         ClientId = "mvc",
                         ClientSecret = "secret",
@@ -89,7 +89,7 @@ namespace Budget.Controllers
         {
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5005");
+            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5005");
             //if (disco.IsError)
             //{
             //    Console.WriteLine(disco.Error);

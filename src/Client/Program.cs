@@ -12,7 +12,7 @@
             // discover endpoints from metadata
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5005");
+            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5005");
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);

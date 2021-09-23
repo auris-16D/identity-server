@@ -5,6 +5,7 @@ using System.Net.Http;
 using Api.AccessControl.Extensions;
 using Api.Data.Interfaces.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using static Api.Library.Common.ErrorMessage;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,14 +18,16 @@ namespace Api.Controllers.V1.Budgets
     public class BudgetController : ControllerBase
     {
         private IBudgetsReadQuery budgetsReadQuery;
+        private ILogger logger;
 
-        public BudgetController(IBudgetsReadQuery budgetsReadQuery)
+        public BudgetController(ILogger logger, IBudgetsReadQuery budgetsReadQuery)
         {
+            this.logger = logger;
             this.budgetsReadQuery = budgetsReadQuery;
         }
 
         [HttpGet]
-        [Route("{principalId}/budget/{budgetId}")]
+        [Route("{budgetId}/principle/{principalId}")]
         public IActionResult GetById(Guid principalId, long budgetId)
         {
             

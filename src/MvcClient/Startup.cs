@@ -31,14 +31,14 @@ namespace Budget
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://localhost:5005";
+                    options.Authority = "http://localhost:5005";
 
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
                     options.Scope.Add("profile");
                     options.GetClaimsFromUserInfoEndpoint = true;
-
+                    options.RequireHttpsMetadata = false;
                     options.SaveTokens = true;
                     options.Scope.Add("api1");
                     options.Scope.Add("offline_access");
@@ -58,6 +58,7 @@ namespace Budget
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Strict });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

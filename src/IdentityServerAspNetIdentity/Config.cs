@@ -94,15 +94,15 @@ namespace IdentityServerAspNetIdentity
                 ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
-                AccessTokenLifetime = 3600,
+                AccessTokenLifetime = (3600 * 6), // 6 hours
                 RefreshTokenExpiration = TokenExpiration.Absolute,
                 RefreshTokenUsage = TokenUsage.ReUse,
 
                 // where to redirect to after login
-                RedirectUris = { "https://localhost:5010/signin-oidc" },
+                RedirectUris = { "http://localhost:5009/signin-oidc" },
 
                 // where to redirect to after logout
-                PostLogoutRedirectUris = { "https://localhost:5010/signout-callback-oidc" },
+                PostLogoutRedirectUris = { "http://localhost:5009/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
 
