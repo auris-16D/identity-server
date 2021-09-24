@@ -18,9 +18,9 @@ namespace Api.Controllers.V1.Budgets
     public class BudgetController : ControllerBase
     {
         private IBudgetsReadQuery budgetsReadQuery;
-        private ILogger logger;
+        private ILogger<BudgetController> logger;
 
-        public BudgetController(ILogger logger, IBudgetsReadQuery budgetsReadQuery)
+        public BudgetController(ILogger<BudgetController> logger, IBudgetsReadQuery budgetsReadQuery)
         {
             this.logger = logger;
             this.budgetsReadQuery = budgetsReadQuery;

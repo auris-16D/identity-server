@@ -1,4 +1,4 @@
-﻿version: "2.4"
+﻿version: "3.1"
 
 services:
   mysql:
@@ -10,3 +10,28 @@ services:
       MYSQL_ROOT_HOST: "%"
     ports:
     - 3306:3306
+  api:
+    container_name: api_service
+    volumes:
+      - ./src/Api/bin/Release/net5.0:/app
+    image: api
+    environment:
+      ASPNETCORE_URLS: "http://*:6001"
+      DATABASE_CONNECTION_STRING: "server=mysql_host;user=root;password=my-secret-pw;database=Budget"
+    command: bash -c "dotnet Api.dll"
+    depends_on:
+      - mysql
+    ports:
+    - 6001:6001
+  identity:
+    container_name: identity_service
+    volumes:
+      - ./src/IdentityServerAspNetIdentity/bin/Release/net5.0:/app
+    image: identity
+    environment:
+      ASPNETCORE_URLS: "http://*:5005"
+    command: bash -c "dotnet IdentityServerAspNetIdentity.dll"
+    depends_on:
+      - mysql
+    ports:
+    - 5005:5005

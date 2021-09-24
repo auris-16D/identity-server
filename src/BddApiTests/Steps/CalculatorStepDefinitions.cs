@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BddApiTests.Client;
+using Newtonsoft.Json;
 
 namespace BddApiTests.Steps
 {
@@ -27,7 +28,7 @@ namespace BddApiTests.Steps
        [Given("the first number is (.*)")]
        public async Task GivenTheFirstNumberIs(int number)
        {
-            apiClient = await AuthenticatedClient.Get();
+            // apiClient = await AuthenticatedClient.Get();
 
             this.firsNumber = number;
        }
@@ -35,8 +36,11 @@ namespace BddApiTests.Steps
        [Given("the second number is (.*)")]
        public async Task GivenTheSecondNumberIs(int number)
        {
-            var budgets = await apiClient.GetAsync("http://localhost:6001/api/v1/budgets/17/principle/6685e0dd-653c-407a-88f5-ea3cf643890e");
-            this.secondNumber = number;
+            // var budgets = await apiClient.GetAsync("http://api:6001/api/v1/budgets/17/principle/6685e0dd-653c-407a-88f5-ea3cf643890e");
+            // var budgetResponse = await budgets.Content.ReadAsStringAsync();
+            // var list = JsonConvert.DeserializeObject(budgetResponse);
+            // Assert.False(true,list.ToString());
+            this.secondNumber = number; 
         }
         
        [When("the two numbers are added")]

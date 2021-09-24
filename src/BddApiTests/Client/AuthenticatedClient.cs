@@ -15,7 +15,12 @@ namespace BddApiTests.Client
         {
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("http://localhost:5005");
+            var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest {
+                        Address = "http://identity:5005",
+                        Policy =
+                        {
+                            RequireHttps = false
+                        }});
             if (disco.IsError)
             {
                 Console.WriteLine(disco.Error);
