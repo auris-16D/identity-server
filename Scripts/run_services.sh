@@ -4,8 +4,8 @@ set -e
 export COMMAND="dotnet IdentityServerAspNetIdentity.dll"
 export COMMAND="echo 'copying keys' && cp ./certs/* /usr/local/share/ca-certificates && update-ca-certificates --verbose && dotnet IdentityServerAspNetIdentity.dll"
 
-export SENDGRID_KEY="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"
-export SENDGRID_USER="NigelSurtees"
+export SENDGRID_KEY=${SENDGRID_KEY}
+export SENDGRID_USER=${SENDGRID_USER}
 if [[ $@ == *"--seed"* ]] ;then
   export COMMAND="echo 'copying keys' && cp ./certs/* /usr/local/share/ca-certificates && update-ca-certificates --verbose && dotnet IdentityServerAspNetIdentity.dll '/seed'"
   # export COMMAND="dotnet IdentityServerAspNetIdentity.dll '/seed'"
