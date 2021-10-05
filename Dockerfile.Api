@@ -6,13 +6,9 @@ ENV APP_DIR $APP_DIR
 ARG COMMAND
 ENV COMMAND ${COMMAND}
 
-ARG PORT_NO
-ENV PORT_NO ${PORT_NO}
-
 RUN mkdir $APP_DIR
 WORKDIR /$APP_DIR
+COPY ./src/Api/bin/Release/net5.0/publish /$APP_DIR
 
-COPY ./src/Api/bin/Release/net5.0/publish/ /$APP_DIR
-
-EXPOSE $PORT_NO 
+EXPOSE 6001
 CMD bash -c "${COMMAND}"

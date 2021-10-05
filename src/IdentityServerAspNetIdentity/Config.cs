@@ -99,10 +99,10 @@ namespace IdentityServerAspNetIdentity
                 RefreshTokenUsage = TokenUsage.ReUse,
 
                 // where to redirect to after login
-                RedirectUris = { "http://localhost:5009/signin-oidc" },
+                RedirectUris = { "https://localhost:5010/signin-oidc" },
 
                 // where to redirect to after logout
-                PostLogoutRedirectUris = { "http://localhost:5009/signout-callback-oidc" },
+                PostLogoutRedirectUris = { "https://localhost:5010/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
 

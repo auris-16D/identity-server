@@ -22,10 +22,10 @@
       "dotnetRunMessages": "true",
       "launchBrowser": false,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:6001",
+      "applicationUrl": "https://localhost:6001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DATABASE_CONNECTION_STRING": "server=mysql_host;user=root;password=my-secret-pw;database=Budget"
+        "DATABASE_CONN_STRING": "server=mysql_host;user=root;password=my-secret-pw;database=Budget"
       }
     }
   }

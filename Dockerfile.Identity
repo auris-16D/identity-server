@@ -16,5 +16,5 @@ WORKDIR /$APP_DIR
 
 COPY ./src/IdentityServerAspNetIdentity/bin/Release/net5.0/publish/ /$APP_DIR
 
-EXPOSE $PORT_NO 
+EXPOSE 5005
 CMD bash -c "${COMMAND}"

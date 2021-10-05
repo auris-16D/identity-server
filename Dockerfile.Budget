@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+
+ARG APP_DIR
+ENV APP_DIR $APP_DIR
+
+ARG COMMAND
+ENV COMMAND ${COMMAND}
+
+RUN mkdir $APP_DIR
+WORKDIR /$APP_DIR
+
+COPY ./src/Budget/bin/Release/net5.0/publish/ /$APP_DIR
+
+EXPOSE 5009
+EXPOSE 5010
+CMD bash -c "${COMMAND}"

@@ -45,7 +45,7 @@ set -e
       echo '***********************************************************************'
       dotnet publish './src/Api/Api.csproj' -c Release #--configuration 'Release' --output 'TravelTracker/bin/Release/net5.0/publish'
       dotnet publish './src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj' -c Release
-    
+      # dotnet publish './src/Budget/Budget.csproj' -c Release
     #   echo '***********************************************************************'
     #   echo '####      Logging in to AWS with pwpr-preprod credentials         #####'
     #   echo '***********************************************************************'
@@ -56,16 +56,22 @@ set -e
     #   echo '             Building the command to run on the container'
     #   command="RAILS_ENV=preprod bundle && RAILS_ENV=preprod bundle exec rake db:reset && RAILS_ENV=preprod bundle exec rails s -p 3000 -b '0.0.0.0'"
       api_command="dotnet Api.dll"
-      echo $api_command
+      echo "Api command: " $api_command
+
       identity_command="dotnet IdentityServerAspNetIdentity.dll"
-      echo $identity_command
-      BddApiTests="dotnet test ./app/BddApiTests/BddApiTests.csproj"
-      echo $BddApiTests_command
+      echo "Identity command: " $identity_command
+
+      # BddApiTests_command="dotnet test ./app/BddApiTests/BddApiTests.csproj"
+      # echo "BddApiTests command: " $BddApiTests_command
+      
+      # budget_command="dotnet Budget.dll"
+      # echo "Budget command: " $budget_command
       echo '********************************************************************************************************************************************'
       echo ''
       docker build --build-arg APP_DIR=app --build-arg PORT_NO=6001 --build-arg COMMAND="$api_command" -t api --file "Dockerfile.Api" .
       docker build --build-arg APP_DIR=app --build-arg PORT_NO=5005 --build-arg COMMAND="$identity_command" -t identity --file "Dockerfile.Identity" .
-      docker build --build-arg APP_DIR=app --build-arg COMMAND="$BddApiTests_command" -t bdd_api_tests --file "Dockerfile.BddApiTests" .
+      # docker build --build-arg APP_DIR=app --build-arg COMMAND="$budget_command" -t budget --file "Dockerfile.Budget" .
+      # docker build --build-arg APP_DIR=app --build-arg COMMAND="$BddApiTests_command" -t bdd_api_tests --file "Dockerfile.BddApiTests" .
 
 echo ''
       echo ''

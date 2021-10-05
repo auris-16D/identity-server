@@ -9,29 +9,71 @@ services:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_ROOT_HOST: "%"
     ports:
-    - 3306:3306
+      - 3306:3306
   api:
     container_name: api_service
     volumes:
       - ./src/Api/bin/Release/net5.0:/app
+      # - /Users/nigelsurtees/.aspnet/https:/app/https/
+      - ~/certs:/app/certs
     image: api
     environment:
-      ASPNETCORE_URLS: "http://*:6001"
+      ASPNETCORE_URLS: "https://*:6001"
+      # ASPNETCORE_HTTPS_PORT: 6001
+      # ASPNETCORE_Kestrel__Certificates__Default__Password: "M3rcedese200!"
+      # ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/https/Api.pfx"
       DATABASE_CONNECTION_STRING: "server=mysql_host;user=root;password=my-secret-pw;database=Budget"
-    command: bash -c "dotnet Api.dll"
+    command: bash -c "cp ./certs/* /usr/local/share/ca-certificates && update-ca-certificates --verbose && dotnet Api.dll"
+    # command: bash -c "dotnet Api.dll"
     depends_on:
       - mysql
+      - identity
+    links:
+      - identity
+      - mysql
     ports:
-    - 6001:6001
+      - 6001:6001
   identity:
     container_name: identity_service
     volumes:
       - ./src/IdentityServerAspNetIdentity/bin/Release/net5.0:/app
+      - ~/certs:/app/certs
+      # - /Users/nigelsurtees/.aspnet/https:/app/https/
     image: identity
     environment:
-      ASPNETCORE_URLS: "http://*:5005"
-    command: bash -c "dotnet IdentityServerAspNetIdentity.dll"
+      # ASPNETCORE_HTTPS_PORT: 5005
+      # ASPNETCORE_Kestrel__Certificates__Default__Password: "M3rcedese200!"
+      # ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/https/IdentityServerAspNetIdentity.pfx"
+      ASPNETCORE_URLS: "https://*:5005"
+      DATABASE_CONN_STRING: "server=mysql_host;user=root;password=my-secret-pw;database=identity"
+      SENDGRID_KEY: "${SENDGRID_KEY}"
+      SENDGRID_USER: "${SENDGRID_USER}"
+    command: bash -c "${COMMAND}"
     depends_on:
       - mysql
+    links:
+      - mysql
     ports:
-    - 5005:5005
+      - 5005:5005
+  # budget:
+  #   container_name: budget_service
+  #   volumes:
+  #     - ./src/budget/bin/Release/net5.0:/app
+  #     # - /Users/nigelsurtees/.aspnet/https:/https/
+  #     - ~/certs:/app/certs
+    # image: budget
+    # environment:
+    #   ASPNETCORE_URLS: "https://*:5010;http://*:5009"
+    #   ASPNETCORE_HTTPS_PORT: 5010
+    #   # ASPNETCORE_Kestrel__Certificates__Default__Password: "M3rcedese200!"
+    #   # ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/Budget.pfx"
+    # command: bash -c "cp ./certs/wild.localhost.crt /usr/local/share/ca-certificates/ && cp ./certs/wild.localhost.crt /usr/local/share/ca-certificates && update-ca-certificates && dotnet Budget.dll"
+    # depends_on:
+    #   - api
+    #   - identity
+    # links:
+    #   - api
+    #   - identity
+    # ports:
+    #   - 5009:5009
+    #   - 5010:5010

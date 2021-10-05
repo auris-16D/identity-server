@@ -26,7 +26,7 @@ namespace BddApiTests.Steps
        }
 
        [Given("the first number is (.*)")]
-       public async Task GivenTheFirstNumberIs(int number)
+       public void GivenTheFirstNumberIs(int number)
        {
             // apiClient = await AuthenticatedClient.Get();
 
@@ -34,7 +34,7 @@ namespace BddApiTests.Steps
        }
 
        [Given("the second number is (.*)")]
-       public async Task GivenTheSecondNumberIs(int number)
+       public void GivenTheSecondNumberIs(int number)
        {
             // var budgets = await apiClient.GetAsync("http://api:6001/api/v1/budgets/17/principle/6685e0dd-653c-407a-88f5-ea3cf643890e");
             // var budgetResponse = await budgets.Content.ReadAsStringAsync();

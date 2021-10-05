@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System;
 using System.Threading.Tasks;
 
 namespace IdentityServerAspNetIdentity.Services
@@ -16,15 +17,17 @@ namespace IdentityServerAspNetIdentity.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute(Options.SendGridKey, subject, message, email);
+            var sendGridKey = Environment.GetEnvironmentVariable("SENDGRID_KEY") ?? Options.SendGridKey;
+            return Execute(sendGridKey, subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
+            var sendGridUser = Environment.GetEnvironmentVariable("SENDGRID_USER") ?? Options.SendGridUser;
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("nigesurtees@gmail.com", Options.SendGridUser),
+                From = new EmailAddress("nigesurtees@gmail.com", sendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

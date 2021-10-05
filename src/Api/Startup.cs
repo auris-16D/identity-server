@@ -31,8 +31,7 @@ namespace Api
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
             {
-                options.Authority = "http://identity:5005";
-                options.RequireHttpsMetadata = false;
+                options.Authority = "https://identity:5005";
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false

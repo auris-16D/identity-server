@@ -50,6 +50,7 @@ namespace IdentityServerAspNetIdentity
                 {
                     Log.Information("Seeding database...");
                     var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONN_STRING");
+                    Log.Information($"Connection String(Program): {connectionString}");
                     var config = host.Services.GetRequiredService<IConfiguration>();
                     // var connectionString = config.GetConnectionString("DefaultConnection");
                     SeedData.EnsureSeedData(connectionString);
