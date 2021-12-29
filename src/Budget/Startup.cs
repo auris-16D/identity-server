@@ -40,7 +40,7 @@ namespace Budget
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://identity:5005";
+                    options.Authority = "https://localhost:5005";
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";

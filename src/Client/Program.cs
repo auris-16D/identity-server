@@ -41,7 +41,7 @@
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await apiClient.GetAsync("https://api:6001/identity");
+            var response = await apiClient.GetAsync("https://localhost:6001/identity");
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine($"IdentityController error code: {response.StatusCode}");

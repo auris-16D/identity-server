@@ -45,7 +45,7 @@ set -e
       echo '***********************************************************************'
       dotnet publish './src/Api/Api.csproj' -c Release #--configuration 'Release' --output 'TravelTracker/bin/Release/net5.0/publish'
       dotnet publish './src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj' -c Release
-      # dotnet publish './src/Budget/Budget.csproj' -c Release
+      dotnet publish './src/Budget/Budget.csproj' -c Release
     #   echo '***********************************************************************'
     #   echo '####      Logging in to AWS with pwpr-preprod credentials         #####'
     #   echo '***********************************************************************'
@@ -70,7 +70,7 @@ set -e
       echo ''
       docker build --build-arg APP_DIR=app --build-arg PORT_NO=6001 --build-arg COMMAND="$api_command" -t api --file "Dockerfile.Api" .
       docker build --build-arg APP_DIR=app --build-arg PORT_NO=5005 --build-arg COMMAND="$identity_command" -t identity --file "Dockerfile.Identity" .
-      # docker build --build-arg APP_DIR=app --build-arg COMMAND="$budget_command" -t budget --file "Dockerfile.Budget" .
+      docker build --build-arg APP_DIR=app --build-arg COMMAND="$budget_command" -t budget --file "Dockerfile.Budget" .
       # docker build --build-arg APP_DIR=app --build-arg COMMAND="$BddApiTests_command" -t bdd_api_tests --file "Dockerfile.BddApiTests" .
 
 echo ''

@@ -13,7 +13,7 @@ namespace ApiTests.AccessControl
         [SetUp]
         public virtual void Setup()
         {
-            Environment.SetEnvironmentVariable("DATABASE_CONN_STRING", "server=mysql_host;user=root;password=my-secret-pw;database=Budget");
+            Environment.SetEnvironmentVariable("DATABASE_CONN_STRING", "server=localhost;user=root;password=my-secret-pw;database=Budget");
         }
     }
 }

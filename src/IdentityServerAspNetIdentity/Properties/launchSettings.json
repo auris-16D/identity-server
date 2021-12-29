@@ -5,7 +5,8 @@
       "launchBrowser": false,
       "applicationUrl": "https://*:5005",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASE_CONN_STRING": "server=localhost;user=root;password=my-secret-pw;database=identity"
       }
     },
     "IdentityServerAspNetIdentity": {
@@ -13,7 +14,8 @@
       "launchBrowser": false,
       "applicationUrl": "https://localhost:49004;http://localhost:28594",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASE_CONN_STRING": "server=localhost;user=root;password=my-secret-pw;database=identity"
       }
     }
   }

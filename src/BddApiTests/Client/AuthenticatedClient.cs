@@ -16,7 +16,7 @@ namespace BddApiTests.Client
             var client = new HttpClient();
 
             var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest {
-                        Address = "https://identity:5005",
+                        Address = "https://localhost:5005",
                         Policy =
                         {
                             RequireHttps = false

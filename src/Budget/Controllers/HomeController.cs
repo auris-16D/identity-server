@@ -49,7 +49,7 @@ namespace Budget.Controllers
 
             try
             {
-                content = await client.GetStringAsync("https://api:6001/identity");
+                content = await client.GetStringAsync("https://localhost:6001/identity");
                 //content = await client.GetStringAsync("https://localhost:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
                 //content = await client.GetStringAsync("https://localhost:6001/budget");
             }
@@ -60,7 +60,7 @@ namespace Budget.Controllers
                     var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
                     var response = await client.RequestRefreshTokenAsync(new RefreshTokenRequest
                     {
-                        Address = "https://identity:5005/connect/token",
+                        Address = "https://localhost:5005/connect/token",
 
                         ClientId = "mvc",
                         ClientSecret = "secret",
@@ -69,7 +69,7 @@ namespace Budget.Controllers
                     });
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.AccessToken);
                     //content = await client.GetStringAsync("https://localhost:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
-                    content = await client.GetStringAsync("https://api:6001/identity");
+                    content = await client.GetStringAsync("https://localhost:6001/identity");
                 } 
             }
             
@@ -89,7 +89,7 @@ namespace Budget.Controllers
         {
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://identity:5005");
+            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5005");
             //if (disco.IsError)
             //{
             //    Console.WriteLine(disco.Error);

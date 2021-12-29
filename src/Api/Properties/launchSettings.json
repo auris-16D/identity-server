@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -25,7 +25,7 @@
       "applicationUrl": "https://localhost:6001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DATABASE_CONN_STRING": "server=mysql_host;user=root;password=my-secret-pw;database=Budget"
+        "DATABASE_CONN_STRING": "server=localhost;user=root;password=my-secret-pw;database=Budget"
       }
     }
   }
