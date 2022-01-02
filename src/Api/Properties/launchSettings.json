@@ -24,6 +24,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:6001",
       "environmentVariables": {
+        "PROTOCOL": "https",
+        "IDENTITY_SERVER_DOMAIN": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DATABASE_CONN_STRING": "server=localhost;user=root;password=my-secret-pw;database=Budget"
       }

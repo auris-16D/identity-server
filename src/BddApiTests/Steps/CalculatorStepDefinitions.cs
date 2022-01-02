@@ -36,7 +36,7 @@ namespace BddApiTests.Steps
        [Given("the second number is (.*)")]
        public void GivenTheSecondNumberIs(int number)
        {
-            // var budgets = await apiClient.GetAsync("http://api:6001/api/v1/budgets/17/principle/6685e0dd-653c-407a-88f5-ea3cf643890e");
+            // var budgets = await apiClient.GetAsync("http://api:6001/api/v1/budgets/17/principal/6685e0dd-653c-407a-88f5-ea3cf643890e");
             // var budgetResponse = await budgets.Content.ReadAsStringAsync();
             // var list = JsonConvert.DeserializeObject(budgetResponse);
             // Assert.False(true,list.ToString());

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,10 +29,13 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
             });
 
+            var protocol = Environment.GetEnvironmentVariable("PROTOCOL") ?? "http";
+            var identityServerDomain = Environment.GetEnvironmentVariable("IDENTITY_SERVER_DOMAIN") ?? "localhost";
+
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
             {
-                options.Authority = "https://localhost:5005";
+                options.Authority = $"{protocol}://{identityServerDomain}:5005";
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateAudience = false

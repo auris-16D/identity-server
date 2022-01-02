@@ -14,9 +14,10 @@ namespace BddApiTests.Client
         public static async Task<HttpClient> Get()
         {
             var client = new HttpClient();
-
+            var protocol = Environment.GetEnvironmentVariable("PROTOCOL") ?? "http";
+            var identityServer = Environment.GetEnvironmentVariable("IDENTITY_SERVER") ?? "localhost";
             var disco = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest {
-                        Address = "https://localhost:5005",
+                        Address = $"{protocol}://{identityServer}:5005",
                         Policy =
                         {
                             RequireHttps = false

@@ -17,11 +17,17 @@ namespace Budget.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly string protocol;
+        private readonly string identityServerDomain;
+        private readonly string apiServerDomain;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.protocol = Environment.GetEnvironmentVariable("PROTOCOL") ?? "http";
+            this.apiServerDomain = Environment.GetEnvironmentVariable("API_SERVER_DOMAIN") ?? "localhost";
+            this.identityServerDomain = Environment.GetEnvironmentVariable("IDENTITY_SERVER_DOMAIN") ?? "localhost";
         }
 
         public IActionResult Index()
@@ -49,9 +55,9 @@ namespace Budget.Controllers
 
             try
             {
-                content = await client.GetStringAsync("https://localhost:6001/identity");
-                //content = await client.GetStringAsync("https://localhost:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
-                //content = await client.GetStringAsync("https://localhost:6001/budget");
+                content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/identity");
+                //content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                //content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/budget");
             }
             catch (HttpRequestException ex)
             {
@@ -60,7 +66,7 @@ namespace Budget.Controllers
                     var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
                     var response = await client.RequestRefreshTokenAsync(new RefreshTokenRequest
                     {
-                        Address = "https://localhost:5005/connect/token",
+                        Address = $"{this.protocol}://{this.identityServerDomain}:5005/connect/token",
 
                         ClientId = "mvc",
                         ClientSecret = "secret",
@@ -68,11 +74,49 @@ namespace Budget.Controllers
                         RefreshToken = refreshToken
                     });
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.AccessToken);
-                    //content = await client.GetStringAsync("https://localhost:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
-                    content = await client.GetStringAsync("https://localhost:6001/identity");
+                    // content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/budget?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                    content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/identity");
                 } 
             }
             
+            ViewBag.Json = JArray.Parse(content).ToString();
+            return View("json");
+        }
+
+        public async Task<IActionResult> GetBudgets()
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var client = new HttpClient();
+            var userId = User.FindFirstValue("sub");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var content = string.Empty;
+
+            try
+            {
+                content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/identity");
+                //content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/v1/budgets?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                //content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/v1/budgets");
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+                    var response = await client.RequestRefreshTokenAsync(new RefreshTokenRequest
+                    {
+                        Address = $"{this.protocol}://{this.identityServerDomain}:5005/connect/token",
+
+                        ClientId = "mvc",
+                        ClientSecret = "secret",
+
+                        RefreshToken = refreshToken
+                    });
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", response.AccessToken);
+                    content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/v1/budgets?principalId=a176ff96-baeb-4dd9-87e8-ed5ad9843c8b");
+                    content = await client.GetStringAsync($"{this.protocol}://{this.apiServerDomain}:6001/identity");
+                }
+            }
+
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
         }
@@ -89,7 +133,7 @@ namespace Budget.Controllers
         {
             var client = new HttpClient();
 
-            var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5005");
+            var disco = await client.GetDiscoveryDocumentAsync($"{this.protocol}://{this.identityServerDomain}:5005");
             //if (disco.IsError)
             //{
             //    Console.WriteLine(disco.Error);

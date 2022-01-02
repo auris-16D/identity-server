@@ -15,14 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "src\ApiTests\Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31BF7FF9-FDB6-448F-89DC-66912E8C3A29}"
 	ProjectSection(SolutionItems) = preProject
-		dc.yml = dc.yml
+		docker-compose.yml = docker-compose.yml
+		docker-compose-base.yml = docker-compose-base.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BddApiTests", "src\BddApiTests\BddApiTests.csproj", "{9CEE45B0-DF1F-4C39-8C74-46960F79242C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget", "src\Budget\Budget.csproj", "{C4842554-4BA0-486D-99D2-185A58172D0C}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "docker-compose", "docker-compose.dcproj", "{FD52E93C-7E0D-4281-8308-B4A227F14E80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

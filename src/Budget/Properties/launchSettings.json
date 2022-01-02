@@ -21,6 +21,9 @@
       "launchBrowser": false,
       "applicationUrl": "https://*:5010;http://*:5009",
       "environmentVariables": {
+        "PROTOCOL": "https",
+        "IDENTITY_SERVER_DOMAIN": "localhost",
+        "API_SERVER_DOMAIN": "localhost",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
