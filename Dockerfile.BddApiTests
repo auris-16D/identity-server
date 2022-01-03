@@ -1,0 +1,18 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+
+ARG APP_DIR
+ENV APP_DIR $APP_DIR
+
+ARG COMMAND
+ENV COMMAND ${COMMAND}
+
+ARG PORT_NO
+ENV PORT_NO ${PORT_NO}
+
+RUN mkdir $APP_DIR
+WORKDIR /$APP_DIR
+
+COPY ./src/BddApiTests/bin/Release/net5.0/publish/ /$APP_DIR
+
+EXPOSE $PORT_NO 
+CMD bash -c "${COMMAND}"

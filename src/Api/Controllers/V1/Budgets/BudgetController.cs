@@ -5,6 +5,7 @@ using System.Net.Http;
 using Api.AccessControl.Extensions;
 using Api.Data.Interfaces.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using static Api.Library.Common.ErrorMessage;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,17 +18,18 @@ namespace Api.Controllers.V1.Budgets
     public class BudgetController : ControllerBase
     {
         private IBudgetsReadQuery budgetsReadQuery;
+        private ILogger<BudgetController> logger;
 
-        public BudgetController(IBudgetsReadQuery budgetsReadQuery)
+        public BudgetController(ILogger<BudgetController> logger, IBudgetsReadQuery budgetsReadQuery)
         {
+            this.logger = logger;
             this.budgetsReadQuery = budgetsReadQuery;
         }
 
         [HttpGet]
-        [Route("{principalId}/budget/{budgetId}")]
+        [Route("{budgetId}/principal/{principalId}")]
         public IActionResult GetById(Guid principalId, long budgetId)
         {
-            
             var budget = this.budgetsReadQuery.GetBudgetByIdForPrincipal(principalId, budgetId);
 
             if (budget == null)
@@ -39,12 +41,11 @@ namespace Api.Controllers.V1.Budgets
 
             if (!canRead)
             {
-                return StatusCode(403,$"Access denied to read Budget: {budgetId}. Principle with Id: {principalId} owns this resource but does not have the correct permissions");
+                return StatusCode(403,$"Access denied to read Budget: {budgetId}. Principal with Id: {principalId} owns this resource but does not have the correct permissions");
             }
 
             var responseModel = new BudgetResponseModel().FromModel(budget);
-            var result = new JsonResult(responseModel);
-            return result;
+            return new JsonResult(responseModel);
         }
 
         // Index
@@ -58,13 +59,13 @@ namespace Api.Controllers.V1.Budgets
                 return BadRequest(Fields.PrincipalId.IsRequired());
             }
 
-            var authBudgets = new List<IResponseModel>();
+            var authBudgets = new List<BudgetBasicResponseModel>();
             var budgets = this.budgetsReadQuery.GetAllBudgetsForPrincipal(principalId);
             foreach(var budget in budgets)
             {
                 if(budget.CanRead(principalId.ToString()))
                 {
-                    authBudgets.Add(new BudgetResponseModel().FromModel(budget));
+                    authBudgets.Add(new BudgetBasicResponseModel().FromModel(budget));
                 }
             }
             return new JsonResult(authBudgets);

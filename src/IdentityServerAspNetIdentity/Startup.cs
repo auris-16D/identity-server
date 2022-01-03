@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using System;
 using IdentityServer4;
 using IdentityServerAspNetIdentity.Models;
 using IdentityServerAspNetIdentity.Services;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using IEmailSender = IdentityServerAspNetIdentity.Services.IEmailSender;
 
 namespace IdentityServerAspNetIdentity
@@ -31,9 +33,11 @@ namespace IdentityServerAspNetIdentity
         {
             services.AddControllersWithViews();
 
+            var connectionString = System.Environment.GetEnvironmentVariable("DATABASE_CONN_STRING");
+            //this.logger.LogInformation($"Connection String(Startup): {connectionString}");
             services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
-                 ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection"))
+                 options.UseMySql(connectionString,
+                 ServerVersion.AutoDetect(connectionString)
             ));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
@@ -51,7 +55,7 @@ namespace IdentityServerAspNetIdentity
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
 
-                // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
+                // see https://localhostserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)

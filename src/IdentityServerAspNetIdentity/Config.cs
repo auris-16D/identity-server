@@ -94,7 +94,7 @@ namespace IdentityServerAspNetIdentity
                 ClientSecrets = { new Secret("secret".Sha256()) },
 
                 AllowedGrantTypes = GrantTypes.Code,
-                AccessTokenLifetime = 3600,
+                AccessTokenLifetime = (3600 * 6), // 6 hours
                 RefreshTokenExpiration = TokenExpiration.Absolute,
                 RefreshTokenUsage = TokenUsage.ReUse,
 

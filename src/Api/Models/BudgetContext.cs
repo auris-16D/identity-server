@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 
 #nullable disable
 
@@ -8,13 +9,16 @@ namespace Api.Models
 {
     public partial class BudgetContext : DbContext
     {
+        private ILogger<BudgetContext> logger;
+
         public BudgetContext()
         {
         }
 
-        public BudgetContext(DbContextOptions<BudgetContext> options)
+        public BudgetContext(ILogger<BudgetContext> logger, DbContextOptions<BudgetContext> options)
             : base(options)
         {
+            this.logger = logger;
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
@@ -37,7 +41,8 @@ namespace Api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var dataConnectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+                var dataConnectionString = Environment.GetEnvironmentVariable("DATABASE_CONN_STRING");
+                this.logger?.LogInformation($"Connection String(OnConfiguring): {dataConnectionString}");
                 optionsBuilder.UseMySql(dataConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.7.35-mysql"));
             }
         }

@@ -30,6 +30,7 @@ namespace Api.Data.Repositories
                            select (new Budget
                            {
                                BudgetId = b.BudgetId,
+                               Name = b.Name,
                                Description = b.Description,
                                CreatedAt = b.CreatedAt,
                                UpdatedAt = b.UpdatedAt,
@@ -66,6 +67,7 @@ namespace Api.Data.Repositories
                           select (new Budget
                           {
                               BudgetId = b.BudgetId,
+                              Name = b.Name,
                               Description = b.Description,
                               CreatedAt = b.CreatedAt,
                               UpdatedAt = b.UpdatedAt,

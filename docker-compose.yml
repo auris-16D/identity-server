@@ -1,12 +1,68 @@
-﻿version: "2.4"
+﻿version: "3.1"
 
 services:
-  mysql:
-    container_name: mysql_host
-    image: mysql/mysql-server:5.7
+  api:
+    container_name: api_service
+    volumes:
+      - ./src/Api/bin/Release/net5.0:/app
+      # - /Users/nigelsurtees/.aspnet/https:/app/https/
+      # - ./src/certs:/app/certs
+    image: api
     environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: my-secret-pw
-      MYSQL_ROOT_HOST: "%"
+      ASPNETCORE_URLS: "${PROTOCOL}://*:6001"
+      # ASPNETCORE_HTTPS_PORT: 6001
+      # ASPNETCORE_Kestrel__Certificates__Default__Password: "M3rcedese200!"
+      # ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/certs/Api.p12"
+      DATABASE_CONNECTION_STRING: "server=mysql_host1;user=root;password=my-secret-pw;database=Budget"
+    extends:
+      file: docker-compose-base.yml
+      service: mysql
+    command: bash -c "dotnet Api.dll"
+    depends_on:
+      - identity
+    links:
+      - identity
     ports:
-    - 3306:3306
+      - 6001:6001
+  identity:
+    container_name: identity_service
+    volumes:
+      - ./src/IdentityServerAspNetIdentity/bin/Release/net5.0:/app
+      # - /Users/nigelsurtees/.aspnet/https:/app/https/
+    image: identity
+    command: bash -c ${COMMAND}
+    environment:
+      # ASPNETCORE_HTTPS_PORT: 5005
+      # ASPNETCORE_Kestrel__Certificates__Default__Password: M3rcedese200!
+      # ASPNETCORE_Kestrel__Certificates__Default__Path: /app/certs/identity.pem
+     
+      DATABASE_CONN_STRING: "server=mysql_host1;user=root;password=my-secret-pw;database=identity"
+      ASPNETCORE_URLS: "${PROTOCOL}://*:5005"
+      SENDGRID_KEY: "${SENDGRID_KEY}"
+      SENDGRID_USER: "${SENDGRID_USER}"
+    extends:
+      file: docker-compose-base.yml
+      service: mysql
+    ports:
+      - 5005:5005
+  budget:
+    container_name: budget_service
+    volumes:
+      - ./src/budget/bin/Release/net5.0:/app
+      # - /Users/nigelsurtees/.aspnet/https:/https/
+    image: budget
+    environment:
+      ASPNETCORE_URLS: "${PROTOCOL}://*:5010;http://*:5009"
+      # ASPNETCORE_HTTPS_PORT: 5010
+      # ASPNETCORE_Kestrel__Certificates__Default__Password: "M3rcedese200!"
+      # ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/Budget.pfx"
+    command: bash -c "dotnet Budget.dll"
+    depends_on:
+      - api
+      - identity
+    links:
+      - api
+      - identity
+    ports:
+      - 5009:5009
+      - 5010:5010

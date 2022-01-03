@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>8a9f4c46-3e69-42f4-818b-62e9ff249aae</UserSecretsId>
+    <DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'SelfHost' " />

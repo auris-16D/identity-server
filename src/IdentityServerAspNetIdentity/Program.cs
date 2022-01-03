@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Linq;
+using System.Net;
 
 namespace IdentityServerAspNetIdentity
 {
@@ -48,8 +50,10 @@ namespace IdentityServerAspNetIdentity
                 if (seed)
                 {
                     Log.Information("Seeding database...");
+                    var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONN_STRING");
+                    Log.Information($"Connection String(Program): {connectionString}");
                     var config = host.Services.GetRequiredService<IConfiguration>();
-                    var connectionString = config.GetConnectionString("DefaultConnection");
+                    // var connectionString = config.GetConnectionString("DefaultConnection");
                     SeedData.EnsureSeedData(connectionString);
                     Log.Information("Done seeding database.");
                     return 0;
@@ -72,7 +76,6 @@ namespace IdentityServerAspNetIdentity
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

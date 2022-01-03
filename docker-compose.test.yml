@@ -1,0 +1,13 @@
+﻿version: "3.1"
+
+services:
+  bdd_api_tests:
+    container_name: bdd_api_tests_service
+    volumes:
+      - ./src/BddApiTests:/app
+    image: bdd_api_tests
+    command: bash -c "dotnet test ./BddApiTests.csproj"
+    depends_on:
+      - mysql
+      - identity
+      - api

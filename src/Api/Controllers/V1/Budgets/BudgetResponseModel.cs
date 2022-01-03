@@ -6,7 +6,7 @@ using Api.Models;
 
 namespace Api.Controllers.V1.Budgets
 {
-    public class BudgetResponseModel : IResponseModel
+    public class BudgetResponseModel
     {
         public BudgetResponseModel()
         { }
@@ -25,7 +25,7 @@ namespace Api.Controllers.V1.Budgets
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public IResponseModel FromModel(IAccessibleResource accessibleResource)
+        public BudgetResponseModel FromModel(IAccessibleResource accessibleResource)
         {
             var budget = accessibleResource as Budget;
             return new BudgetResponseModel
